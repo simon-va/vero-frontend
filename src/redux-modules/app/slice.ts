@@ -1,23 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Route } from '../../types/app.ts';
+import { Content } from '../../types/app.ts';
 
 export interface AppState {
-    selectedRoute: Route;
+    selectedContent: Content;
 }
 
 const initialState = {
-    selectedRoute: Route.Home
+    selectedContent: Content.Home
 };
 
 const slice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        setSelectedRoute: (state, action: PayloadAction<AppState['selectedRoute']>) => {
-            state.selectedRoute = action.payload;
+        setSelectedContent: (state, action: PayloadAction<AppState['selectedContent']>) => {
+            state.selectedContent = action.payload;
         }
     }
 });
 
-export const { setSelectedRoute } = slice.actions;
+export const { setSelectedContent } = slice.actions;
 export const appReducer = slice.reducer;

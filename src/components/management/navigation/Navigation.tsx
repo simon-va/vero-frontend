@@ -1,22 +1,22 @@
 import { FC } from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import styles from './navigation.styles';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux.ts';
-import { selectSelectedRoute } from '../../redux-modules/app/selectors.ts';
-import { setSelectedRoute } from '../../redux-modules/app/slice.ts';
-import { Route } from '../../types/app.ts';
+import styles from './navigation.styles.ts';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux.ts';
+import { selectSelectedContent } from '../../../redux-modules/app/selectors.ts';
+import { setSelectedContent } from '../../../redux-modules/app/slice.ts';
+import { Content } from '../../../types/app.ts';
 
 const Navigation: FC = () => {
-    const selectedRoute = useAppSelector(selectSelectedRoute);
+    const selectedContent = useAppSelector(selectSelectedContent);
 
     const dispatch = useAppDispatch();
 
     const handleListItemClick = (
         _: unknown,
-        route: Route
+        route: Content
     ) => {
-        dispatch(setSelectedRoute(route));
+        dispatch(setSelectedContent(route));
     };
 
     return (
@@ -25,8 +25,8 @@ const Navigation: FC = () => {
                 { ['Home'].map((text) => (
                     <ListItem key={ text } disablePadding>
                         <ListItemButton
-                            selected={ selectedRoute === Route.Home }
-                            onClick={ (event) => handleListItemClick(event, Route.Home) }
+                            selected={ selectedContent === Content.Home }
+                            onClick={ (event) => handleListItemClick(event, Content.Home) }
                         >
                             <ListItemIcon sx={ { minWidth: '40px' } }>
                                 <HomeOutlinedIcon/>
@@ -38,8 +38,8 @@ const Navigation: FC = () => {
             </List>
             <ListItem key="club-settings" disablePadding sx={ { marginTop: 'auto' } }>
                 <ListItemButton
-                    selected={ selectedRoute === Route.ClubSettings }
-                    onClick={ (event) => handleListItemClick(event, Route.ClubSettings) }
+                    selected={ selectedContent === Content.ClubSettings }
+                    onClick={ (event) => handleListItemClick(event, Content.ClubSettings) }
                 >
                     <ListItemIcon sx={ { minWidth: '40px' } }>
                         <HomeOutlinedIcon/>

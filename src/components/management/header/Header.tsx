@@ -3,7 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material';
 import CameraIcon from '@mui/icons-material/Camera';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import styles from './header.styles';
+import styles from './header.styles.ts';
 
 
 const Header: FC = () => {

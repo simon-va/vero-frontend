@@ -1,4 +1,4 @@
-import { StylesTheme } from '../../types/mui.ts';
+import { StylesTheme } from '../../../types/mui.ts';
 
 const styles: StylesTheme = {
     root: {
