@@ -1,16 +1,21 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import styles from './navigation.styles';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux.ts';
+import { selectSelectedRoute } from '../../redux-modules/app/selectors.ts';
+import { setSelectedRoute } from '../../redux-modules/app/slice.ts';
 
 const Navigation: FC = () => {
-    const [selectedIndex, setSelectedIndex] = useState(-1);
+    const selectedRoute = useAppSelector(selectSelectedRoute);
+
+    const dispatch = useAppDispatch();
 
     const handleListItemClick = (
         _: unknown,
         index: number
     ) => {
-        setSelectedIndex(index);
+        dispatch(setSelectedRoute(index));
     };
 
     return (
@@ -19,7 +24,7 @@ const Navigation: FC = () => {
                 { ['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem key={ text } disablePadding>
                         <ListItemButton
-                            selected={ selectedIndex === index }
+                            selected={ selectedRoute === index }
                             onClick={ (event) => handleListItemClick(event, index) }
                         >
                             <ListItemIcon sx={ { minWidth: '40px' } }>
@@ -32,7 +37,7 @@ const Navigation: FC = () => {
             </List>
             <ListItem key="club-settings" disablePadding sx={ { marginTop: 'auto' } }>
                 <ListItemButton
-                    selected={ selectedIndex === 4 }
+                    selected={ selectedRoute === 4 }
                     onClick={ (event) => handleListItemClick(event, 4) }
                 >
                     <ListItemIcon sx={ { minWidth: '40px' } }>
