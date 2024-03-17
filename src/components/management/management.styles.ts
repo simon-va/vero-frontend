@@ -1,6 +1,7 @@
 import { Theme } from '@mui/material';
+import { StylesTheme } from '../../types/mui.ts';
 
-const styles = {
+const styles: StylesTheme = {
     container: {
         flex: 1,
         display: 'flex',
