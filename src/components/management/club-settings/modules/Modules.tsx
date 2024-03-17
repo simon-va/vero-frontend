@@ -10,7 +10,7 @@ import Module from './module/Module.tsx';
 
 
 const Modules: FC = () => {
-    const [expanedModuleId, setExpandedModuleId] = useState<number | null>(null);
+    const [expandedModuleId, setExpandedModuleId] = useState<number | null>(null);
 
     const modules = useAppSelector(selectModules);
 
@@ -48,7 +48,7 @@ const Modules: FC = () => {
                         name={ module.name }
                         key={ module.id }
                         handleExpand={ handleExpand }
-                        isExpanded={ expanedModuleId === module.id }
+                        isExpanded={ expandedModuleId === module.id }
                     />
                 )) }
             </Box>
