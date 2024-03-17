@@ -7,12 +7,14 @@ import {
     Typography
 } from '@mui/material';
 import Module from './module/Module.tsx';
+import { selectSelectedClub } from '../../../../redux-modules/clubs/selectors.ts';
 
 
 const Modules: FC = () => {
     const [expandedModuleId, setExpandedModuleId] = useState<number | null>(null);
 
     const modules = useAppSelector(selectModules);
+    const club = useAppSelector(selectSelectedClub);
 
     const handleExpand = (id: number) => {
         setExpandedModuleId((prev) => prev === id ? null : id);
@@ -21,7 +23,8 @@ const Modules: FC = () => {
     return (
         <Box>
             <Typography variant="body1" sx={ { p: 2 } }>
-                Plugins sind Erweiterungen für die Verwaltung des Vereins. Sie können beliebig hinzugefügt werden.
+                Module sind Erweiterungen für die Verwaltung des Vereins. Sie können beliebig hinzugefügt oder entfernt
+                werden. Keine Sorge, die Daten bleiben, bei nicht benutzen des Modules, erhalten.
             </Typography>
             <Divider/>
 
@@ -49,6 +52,7 @@ const Modules: FC = () => {
                         key={ module.id }
                         handleExpand={ handleExpand }
                         isExpanded={ expandedModuleId === module.id }
+                        isSelected={ club?.modules?.some((clubModule) => clubModule === module.id) || false }
                     />
                 )) }
             </Box>

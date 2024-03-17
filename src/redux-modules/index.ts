@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { appReducer } from './app/slice.ts';
 import { modulesReducer } from './modules/slice.ts';
+import { clubsReducer } from './clubs/slice.ts';
 
 export const store = configureStore({
     reducer: {
         app: appReducer,
-        modules: modulesReducer
+        modules: modulesReducer,
+        clubs: clubsReducer
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware({
