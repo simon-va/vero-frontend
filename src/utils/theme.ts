@@ -3,13 +3,13 @@ import { createTheme } from '@mui/material';
 declare module '@mui/material/styles' {
     interface Theme {
         custom: {
-            navBackground: string
+            contentBackground: string
         };
     }
 
     interface ThemeOptions {
         custom: {
-            navBackground?: string
+            contentBackground: string
         };
     }
 }
@@ -26,9 +26,12 @@ export const theme = createTheme({
             primary: 'rgba(63,69,104,0.87)',
             secondary: 'rgba(63,69,104,0.6)',
             disabled: 'rgba(63,69,104,0.38)'
+        },
+        background: {
+            default: '#F8F9FD'
         }
     },
     custom: {
-        navBackground: '#F8F9FD'
+        contentBackground: '#fff'
     }
 });
