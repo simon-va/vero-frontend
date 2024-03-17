@@ -1,7 +1,9 @@
-const App = () => {
+import { FC } from 'react';
+import { Box } from '@mui/material';
 
+const App: FC = () => {
     return (
-        <div>Hallo</div>
+        <Box>VerO</Box>
     );
 };
 
