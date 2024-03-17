@@ -5,6 +5,7 @@ import styles from './navigation.styles';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.ts';
 import { selectSelectedRoute } from '../../redux-modules/app/selectors.ts';
 import { setSelectedRoute } from '../../redux-modules/app/slice.ts';
+import { Route } from '../../types/app.ts';
 
 const Navigation: FC = () => {
     const selectedRoute = useAppSelector(selectSelectedRoute);
@@ -13,19 +14,19 @@ const Navigation: FC = () => {
 
     const handleListItemClick = (
         _: unknown,
-        index: number
+        route: Route
     ) => {
-        dispatch(setSelectedRoute(index));
+        dispatch(setSelectedRoute(route));
     };
 
     return (
         <Box sx={ styles.root }>
             <List>
-                { ['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                { ['Home'].map((text) => (
                     <ListItem key={ text } disablePadding>
                         <ListItemButton
-                            selected={ selectedRoute === index }
-                            onClick={ (event) => handleListItemClick(event, index) }
+                            selected={ selectedRoute === Route.Home }
+                            onClick={ (event) => handleListItemClick(event, Route.Home) }
                         >
                             <ListItemIcon sx={ { minWidth: '40px' } }>
                                 <HomeOutlinedIcon/>
@@ -37,8 +38,8 @@ const Navigation: FC = () => {
             </List>
             <ListItem key="club-settings" disablePadding sx={ { marginTop: 'auto' } }>
                 <ListItemButton
-                    selected={ selectedRoute === 4 }
-                    onClick={ (event) => handleListItemClick(event, 4) }
+                    selected={ selectedRoute === Route.ClubSettings }
+                    onClick={ (event) => handleListItemClick(event, Route.ClubSettings) }
                 >
                     <ListItemIcon sx={ { minWidth: '40px' } }>
                         <HomeOutlinedIcon/>

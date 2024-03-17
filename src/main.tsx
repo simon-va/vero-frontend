@@ -4,13 +4,16 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css';
-import { RouterProvider } from 'react-router-dom';
-import routes from './routes';
 import { Provider } from 'react-redux';
 import { store } from './redux-modules';
+import App from './components/App.tsx';
+import { theme } from './utils/theme.ts';
+import { ThemeProvider } from '@mui/material';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <Provider store={ store }>
-        <RouterProvider router={ routes }/>
+        <ThemeProvider theme={ theme }>
+            <App/>
+        </ThemeProvider>
     </Provider>
 );

@@ -1,14 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Route } from '../../types/app.ts';
+
+export interface AppState {
+    selectedRoute: Route;
+}
 
 const initialState = {
-    selectedRoute: -1
+    selectedRoute: Route.Home
 };
 
 const slice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        setSelectedRoute: (state, action: PayloadAction<number>) => {
+        setSelectedRoute: (state, action: PayloadAction<AppState['selectedRoute']>) => {
             state.selectedRoute = action.payload;
         }
     }
