@@ -49,6 +49,7 @@ const Modules: FC = () => {
                     <Module
                         id={ module.id }
                         name={ module.name }
+                        description={ module.description }
                         key={ module.id }
                         handleExpand={ handleExpand }
                         isExpanded={ expandedModuleId === module.id }

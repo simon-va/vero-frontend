@@ -13,7 +13,9 @@ const App: FC = () => {
 
     useEffect(() => {
         void dispatch(loadModules());
-        void dispatch(loadClubs());
+
+        // loadClubs reset state
+        // void dispatch(loadClubs());
     }, [dispatch]);
 
     useEffect(() => {
