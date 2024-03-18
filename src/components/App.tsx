@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux.ts';
 import { loadModules } from '../redux-modules/modules/actions.ts';
 import { selectSelectedClubId } from '../redux-modules/clubs/selectors.ts';
 import { loadClubs } from '../redux-modules/clubs/actions.ts';
+import { loadMembers } from '../redux-modules/members/actions.ts';
 
 
 const App: FC = () => {
@@ -13,8 +14,8 @@ const App: FC = () => {
 
     useEffect(() => {
         void dispatch(loadModules());
-
         void dispatch(loadClubs());
+        void dispatch(loadMembers());
     }, [dispatch]);
 
     useEffect(() => {
