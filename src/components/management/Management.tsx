@@ -1,7 +1,6 @@
 import { useAppSelector } from '../../hooks/redux.ts';
 import { selectSelectedContent } from '../../redux-modules/app/selectors.ts';
 import { FC, useMemo } from 'react';
-import { Content } from '../../types/app.ts';
 import ClubSettings from './club-settings/ClubSettings.tsx';
 import Home from './home/Home.tsx';
 import { Box, CssBaseline } from '@mui/material';
@@ -15,10 +14,12 @@ const Management: FC = () => {
 
     const content = useMemo(() => {
         switch (selectedContent) {
-            case Content.ClubSettings:
+            case -1:
+                return <Home/>;
+            case -2:
                 return <ClubSettings/>;
             default:
-                return <Home/>;
+                return <div>Page not found</div>;
         }
     }, [selectedContent]);
 

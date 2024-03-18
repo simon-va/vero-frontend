@@ -1,12 +1,13 @@
 import { AppDispatch, GetAppState } from '../index.ts';
 import { selectAccessToken } from '../app/selectors.ts';
 import { getClubs, getSelectedClub } from '../../api/club/get.ts';
-import { addModuleToClub, removeModuleFromClub, setClubs, setSelectedClub } from './slice.ts';
+import { setClubs, setSelectedClub } from './slice.ts';
 import { Club } from '../../types/club.ts';
 import { postModuleToClub } from '../../api/module/post.ts';
 import { Module } from '../../types/module.ts';
 import { selectSelectedClubId } from './selectors.ts';
 import { deleteModuleFromClub } from '../../api/module/delete.ts';
+import { setModuleSelected } from '../modules/slice.ts';
 
 export const loadClubs = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const accessToken = selectAccessToken(getState());
@@ -49,8 +50,9 @@ export const saveModuleToClubAdd = ({ moduleId }: AddModuleToClubProps) => async
         return;
     }
 
-    dispatch(addModuleToClub({
-        clubId, moduleId
+    dispatch(setModuleSelected({
+        id: moduleId,
+        isSelected: true
     }));
 };
 
@@ -67,7 +69,8 @@ export const saveModuleFromClubDelete = ({ moduleId }: AddModuleToClubProps) => 
         return;
     }
 
-    dispatch(removeModuleFromClub({
-        clubId, moduleId
+    dispatch(setModuleSelected({
+        id: moduleId,
+        isSelected: false
     }));
 };

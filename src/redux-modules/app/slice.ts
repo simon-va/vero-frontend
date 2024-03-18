@@ -1,13 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Content } from '../../types/app.ts';
 
 export interface AppState {
-    selectedContent: Content;
+    selectedContent: number;
     accessToken: string;
 }
 
 const initialState = {
-    selectedContent: Content.Home,
+    selectedContent: -1,
     accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwidXNlcklkIjoxLCJpYXQiOjE3MTA3MDc5MDZ9.2Zq43lJHssoMPTKxP6y0-4nADshf4VqTIHm2wpcpTt8'
 };
 

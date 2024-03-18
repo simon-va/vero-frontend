@@ -4,11 +4,12 @@ import { request } from '../../utils/request.ts';
 
 interface ModuleProps {
     accessToken: string | null;
+    clubId: number;
 }
 
-export const getModules = async ({ accessToken }: ModuleProps): Promise<ApiFunctionResult<Module[]>> => {
+export const getModules = async ({ accessToken, clubId }: ModuleProps): Promise<ApiFunctionResult<Module[]>> => {
     const response = await request<Module[]>({
-        route: '/modules',
+        route: `/modules/clubs/${ clubId }`,
         method: 'GET',
         accessToken
     });

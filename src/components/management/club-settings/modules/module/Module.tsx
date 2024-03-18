@@ -1,19 +1,19 @@
 import { FC } from 'react';
 import { Box, Checkbox, Collapse, Divider, IconButton, Typography } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import type { Module as IModule } from '../../../../../types/module';
 import { useAppDispatch } from '../../../../../hooks/redux.ts';
 import { saveModuleFromClubDelete, saveModuleToClubAdd } from '../../../../../redux-modules/clubs/actions.ts';
 
 interface ModuleProps {
-    id: number;
-    name: string;
-    description: string;
+    module: IModule;
     handleExpand: (id: number) => void;
     isExpanded: boolean;
     isSelected: boolean;
 }
 
-const Module: FC<ModuleProps> = ({ id, name, handleExpand, isExpanded, isSelected, description }) => {
+const Module: FC<ModuleProps> = ({ module, handleExpand, isExpanded }) => {
+    const { id, name, description, isSelected, isComingSoon } = module;
     const dispatch = useAppDispatch();
 
     const handleClick = () => {
@@ -39,9 +39,16 @@ const Module: FC<ModuleProps> = ({ id, name, handleExpand, isExpanded, isSelecte
                     { isExpanded ? <ExpandLess/> : <ExpandMore/> }
                 </IconButton>
                 <Typography onClick={ () => handleExpand(id) } sx={ { flex: 1 } }>
-                    { name }
+                    { name } { isComingSoon && (
+                    <Typography component='span' sx={ { fontSize: '10px', opacity: 0.8 } }>(Coming soon)</Typography>
+                ) }
                 </Typography>
-                <Checkbox sx={ { marginRight: '26px' } } checked={ isSelected } onChange={ handleClick }/>
+                <Checkbox
+                    disabled={ isComingSoon }
+                    sx={ { marginRight: '26px' } }
+                    checked={ isSelected }
+                    onChange={ handleClick }
+                />
             </Box>
             <Collapse in={ isExpanded } timeout="auto" unmountOnExit>
                 <Typography variant="body2" gutterBottom sx={ { marginLeft: '40px' } }>

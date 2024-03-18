@@ -1,20 +1,21 @@
 import { FC } from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import styles from './navigation.styles.ts';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux.ts';
 import { selectSelectedContent } from '../../../redux-modules/app/selectors.ts';
 import { setSelectedContent } from '../../../redux-modules/app/slice.ts';
-import { Content } from '../../../types/app.ts';
+import { selectSelectedModules } from '../../../redux-modules/modules/selectors.ts';
+import { ICON_LIST } from '../../../constants/module.tsx';
 
 const Navigation: FC = () => {
     const selectedContent = useAppSelector(selectSelectedContent);
+    const modules = useAppSelector(selectSelectedModules);
 
     const dispatch = useAppDispatch();
 
     const handleListItemClick = (
         _: unknown,
-        route: Content
+        route: number
     ) => {
         dispatch(setSelectedContent(route));
     };
@@ -22,27 +23,27 @@ const Navigation: FC = () => {
     return (
         <Box sx={ styles.root }>
             <List>
-                { ['Home'].map((text) => (
-                    <ListItem key={ text } disablePadding>
+                { modules.map(({ name, id }) => (
+                    <ListItem key={ name } disablePadding>
                         <ListItemButton
-                            selected={ selectedContent === Content.Home }
-                            onClick={ (event) => handleListItemClick(event, Content.Home) }
+                            selected={ selectedContent === id }
+                            onClick={ (event) => handleListItemClick(event, id) }
                         >
                             <ListItemIcon sx={ { minWidth: '40px' } }>
-                                <HomeOutlinedIcon/>
+                                { ICON_LIST.find((icon) => icon.id === id)?.component }
                             </ListItemIcon>
-                            <ListItemText primary={ text }/>
+                            <ListItemText primary={ name }/>
                         </ListItemButton>
                     </ListItem>
                 )) }
             </List>
             <ListItem key="club-settings" disablePadding sx={ { marginTop: 'auto' } }>
                 <ListItemButton
-                    selected={ selectedContent === Content.ClubSettings }
-                    onClick={ (event) => handleListItemClick(event, Content.ClubSettings) }
+                    selected={ selectedContent === -2 }
+                    onClick={ (event) => handleListItemClick(event, -2) }
                 >
                     <ListItemIcon sx={ { minWidth: '40px' } }>
-                        <HomeOutlinedIcon/>
+                        { ICON_LIST.find((icon) => icon.id === -2)?.component }
                     </ListItemIcon>
                     <ListItemText primary="Verein"/>
                 </ListItemButton>

@@ -3,7 +3,7 @@ import Management from './management/Management.tsx';
 import { useAppDispatch, useAppSelector } from '../hooks/redux.ts';
 import { loadModules } from '../redux-modules/modules/actions.ts';
 import { selectSelectedClubId } from '../redux-modules/clubs/selectors.ts';
-import { loadClubs, loadSelectedClub } from '../redux-modules/clubs/actions.ts';
+import { loadClubs } from '../redux-modules/clubs/actions.ts';
 
 
 const App: FC = () => {
@@ -14,13 +14,12 @@ const App: FC = () => {
     useEffect(() => {
         void dispatch(loadModules());
 
-        // loadClubs reset state
-        // void dispatch(loadClubs());
+        void dispatch(loadClubs());
     }, [dispatch]);
 
     useEffect(() => {
         if (selectedClubId) {
-            void dispatch(loadSelectedClub(selectedClubId));
+            // void dispatch(loadSelectedClub(selectedClubId));
         }
     }, [dispatch, selectedClubId]);
 

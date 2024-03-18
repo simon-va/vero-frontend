@@ -7,14 +7,12 @@ import {
     Typography
 } from '@mui/material';
 import Module from './module/Module.tsx';
-import { selectSelectedClub } from '../../../../redux-modules/clubs/selectors.ts';
 
 
 const Modules: FC = () => {
     const [expandedModuleId, setExpandedModuleId] = useState<number | null>(null);
 
     const modules = useAppSelector(selectModules);
-    const club = useAppSelector(selectSelectedClub);
 
     const handleExpand = (id: number) => {
         setExpandedModuleId((prev) => prev === id ? null : id);
@@ -24,7 +22,7 @@ const Modules: FC = () => {
         <Box>
             <Typography variant="body1" sx={ { p: 2 } }>
                 Module sind Erweiterungen für die Verwaltung des Vereins. Sie können beliebig hinzugefügt oder entfernt
-                werden. Keine Sorge, die Daten bleiben, bei nicht benutzen des Modules, erhalten.
+                werden. Keine Sorge, die Daten bleiben erhalten, auch wenn das Modul nicht benuzt wird.
             </Typography>
             <Divider/>
 
@@ -47,13 +45,10 @@ const Modules: FC = () => {
                 <Divider/>
                 { modules.map((module) => (
                     <Module
-                        id={ module.id }
-                        name={ module.name }
-                        description={ module.description }
+                        module={ module }
                         key={ module.id }
                         handleExpand={ handleExpand }
                         isExpanded={ expandedModuleId === module.id }
-                        isSelected={ club?.modules?.some((clubModule) => clubModule === module.id) || false }
                     />
                 )) }
             </Box>
