@@ -9,7 +9,6 @@ interface ModuleProps {
     module: IModule;
     handleExpand: (id: number) => void;
     isExpanded: boolean;
-    isSelected: boolean;
 }
 
 const Module: FC<ModuleProps> = ({ module, handleExpand, isExpanded }) => {
