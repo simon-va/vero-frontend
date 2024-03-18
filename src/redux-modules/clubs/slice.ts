@@ -25,12 +25,9 @@ const slice = createSlice({
 
             state.selectedClubId = action.payload;
         },
-        setSelectedClub(state, action: PayloadAction<Club>) {
-            if (state.clubs.length === 0) {
-                state.clubs.push(action.payload);
-            } else {
-                state.clubs = state.clubs.map((club) => (club.id === action.payload.id ? action.payload : club));
-            }
+        addClub(state, action: PayloadAction<Club>) {
+            state.clubs.push(action.payload);
+            state.selectedClubId = action.payload.id;
         }
     }
 });
@@ -38,6 +35,6 @@ const slice = createSlice({
 export const {
     setClubs,
     setSelectedClubId,
-    setSelectedClub
+    addClub
 } = slice.actions;
 export const clubsReducer = slice.reducer;

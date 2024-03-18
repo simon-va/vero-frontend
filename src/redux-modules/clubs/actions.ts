@@ -1,13 +1,13 @@
 import { AppDispatch, GetAppState } from '../index.ts';
 import { selectAccessToken } from '../app/selectors.ts';
-import { getClubs, getSelectedClub } from '../../api/club/get.ts';
-import { setClubs, setSelectedClub } from './slice.ts';
-import { Club } from '../../types/club.ts';
+import { getClubs } from '../../api/club/get.ts';
+import { addClub, setClubs } from './slice.ts';
 import { postModuleToClub } from '../../api/module/post.ts';
 import { Module } from '../../types/module.ts';
 import { selectSelectedClubId } from './selectors.ts';
 import { deleteModuleFromClub } from '../../api/module/delete.ts';
 import { setModuleSelected } from '../modules/slice.ts';
+import { postClub } from '../../api/club/post.ts';
 
 export const loadClubs = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const accessToken = selectAccessToken(getState());
@@ -21,16 +21,18 @@ export const loadClubs = () => async (dispatch: AppDispatch, getState: GetAppSta
     dispatch(setClubs(data));
 };
 
-export const loadSelectedClub = (clubId: Club['id']) => async (dispatch: AppDispatch, getState: GetAppState) => {
+export const saveClubAdd = (clubName: string) => async (dispatch: AppDispatch, getState: GetAppState) => {
     const accessToken = selectAccessToken(getState());
 
-    const { status, data } = await getSelectedClub({ clubId, accessToken });
+    const { status, data } = await postClub({
+        accessToken, name: clubName
+    });
 
-    if (status !== 200 || !data) {
+    if (status !== 201 || !data) {
         return;
     }
 
-    dispatch(setSelectedClub(data));
+    dispatch(addClub(data.club));
 };
 
 interface AddModuleToClubProps {
