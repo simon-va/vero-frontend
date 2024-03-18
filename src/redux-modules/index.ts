@@ -3,13 +3,15 @@ import { appReducer } from './app/slice.ts';
 import { modulesReducer } from './modules/slice.ts';
 import { clubsReducer } from './clubs/slice.ts';
 import { membersReducer } from './members/slice.ts';
+import { teamsReducer } from './teams/slice.ts';
 
 export const store = configureStore({
     reducer: {
         app: appReducer,
         modules: modulesReducer,
         clubs: clubsReducer,
-        members: membersReducer
+        members: membersReducer,
+        teams: teamsReducer
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware({

@@ -1,4 +1,4 @@
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined';
 
@@ -9,7 +9,7 @@ export const ICON_LIST = [
     },
     {
         id: 1,
-        component: <HomeOutlinedIcon/>
+        component: <EventOutlinedIcon/>
     },
     {
         id: 2,

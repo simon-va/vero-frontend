@@ -5,6 +5,7 @@ import { loadModules } from '../redux-modules/modules/actions.ts';
 import { selectSelectedClubId } from '../redux-modules/clubs/selectors.ts';
 import { loadClubs } from '../redux-modules/clubs/actions.ts';
 import { loadMembers } from '../redux-modules/members/actions.ts';
+import { loadTeams } from '../redux-modules/teams/actions.ts';
 
 
 const App: FC = () => {
@@ -16,6 +17,7 @@ const App: FC = () => {
         void dispatch(loadModules());
         void dispatch(loadClubs());
         void dispatch(loadMembers());
+        void dispatch(loadTeams());
     }, [dispatch]);
 
     useEffect(() => {
