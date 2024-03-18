@@ -53,6 +53,12 @@ const Account: FC = () => {
         dispatch(setAccessToken(null));
     };
 
+    const handleCreateClub = () => {
+        handleClose();
+
+        dispatch(setSelectedClubId(null));
+    };
+
     return (
         <>
             <IconButton
@@ -87,7 +93,7 @@ const Account: FC = () => {
                     ))
                 }
                 <Divider/>
-                <MenuItem onClick={ handleClose }>
+                <MenuItem onClick={ handleCreateClub }>
                     <ListItemIcon>
                         <GroupAddIcon fontSize="small"/>
                     </ListItemIcon>
