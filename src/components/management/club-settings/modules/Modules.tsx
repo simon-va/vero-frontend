@@ -30,7 +30,7 @@ const Modules: FC = () => {
                 werden. Keine Sorge, die Daten bleiben erhalten, auch wenn das Modul nicht benuzt wird.
             </Typography>
             <Divider/>
-            <Paper sx={ {
+            <Box sx={ {
                 marginTop: '12px',
                 width: '540px'
             } }>
@@ -67,7 +67,7 @@ const Modules: FC = () => {
                         isExpanded={ expandedModuleId === module.id }
                     />
                 )) }
-            </Paper>
+            </Box>
         </Box>
     );
 };

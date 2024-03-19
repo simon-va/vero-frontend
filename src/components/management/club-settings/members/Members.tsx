@@ -61,35 +61,33 @@ const Members: FC = () => {
             </Typography>
             <Divider/>
             <AddMember/>
-            <TableContainer component={ Paper } sx={ {
-                maxHeight: '700px',
-                mt: '12px'
-            } }>
-                <Table
-                    stickyHeader
-                >
-                    <TableHead>
-                        <TableRow>
-                            { titles.map((title) => (
-                                <TableCell
-                                    key={ title?.key ?? title.name }
-                                    sx={ {
-                                        width: title.width,
-                                        padding: '10px 6px'
-                                    } }
-                                >
-                                    { title.name }
-                                </TableCell>
-                            )) }
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        { members.map((member) => (
-                            <SingleMember key={ member.id } member={ member }/>
+            <Table
+                stickyHeader
+                sx={ {
+                    mt: '12px'
+                } }
+            >
+                <TableHead>
+                    <TableRow>
+                        { titles.map((title) => (
+                            <TableCell
+                                key={ title?.key ?? title.name }
+                                sx={ {
+                                    width: title.width,
+                                    padding: '10px 6px'
+                                } }
+                            >
+                                { title.name }
+                            </TableCell>
                         )) }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    { members.map((member) => (
+                        <SingleMember key={ member.id } member={ member }/>
+                    )) }
+                </TableBody>
+            </Table>
         </>
     );
 };
