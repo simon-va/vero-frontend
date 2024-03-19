@@ -12,6 +12,7 @@ import {
 import { useAppSelector } from '../../../../hooks/redux.ts';
 import { selectMembers } from '../../../../redux-modules/members/selectors.ts';
 import SingleMember from './single-member/SingleMember.tsx';
+import AddMember from './add-member/AddMember.tsx';
 
 const titles = [
     {
@@ -59,6 +60,7 @@ const Members: FC = () => {
                 löschen.
             </Typography>
             <Divider/>
+            <AddMember/>
             <TableContainer component={ Paper } sx={ {
                 maxHeight: '700px',
                 mt: '12px'

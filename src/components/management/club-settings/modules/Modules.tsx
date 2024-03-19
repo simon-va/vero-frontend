@@ -3,8 +3,12 @@ import { selectModules } from '../../../../redux-modules/modules/selectors.ts';
 import { useAppSelector } from '../../../../hooks/redux.ts';
 import {
     Box,
-    Divider, Paper, Table, TableBody, TableCell,
-    TableContainer, TableHead, TableRow,
+    Divider,
+    Paper,
+    Table,
+    TableCell,
+    TableHead,
+    TableRow,
     Typography
 } from '@mui/material';
 import Module from './module/Module.tsx';
