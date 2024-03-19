@@ -4,4 +4,11 @@ export interface Member {
     lastName: string;
     email: string;
     isAdmin: boolean;
+    birthDate: string;
+    phone: string;
+    address: string;
+    city: string;
+    zipCode: string;
+    gender: number | null;
+    userId?: number;
 }

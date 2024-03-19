@@ -66,10 +66,10 @@ const DeleteClub: FC = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={ handleClose } color="primary">
-                        Cancel
+                        Abbrechen
                     </Button>
                     <Button onClick={ handleDelete } color="secondary" disabled={ !isNameValid }>
-                        Delete
+                        Löschen
                     </Button>
                 </DialogActions>
             </Dialog>

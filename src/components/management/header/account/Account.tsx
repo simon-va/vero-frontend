@@ -13,13 +13,12 @@ import { StylesTheme } from '../../../../types/mui.ts';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux.ts';
 import { selectClubs } from '../../../../redux-modules/clubs/selectors.ts';
 import { setSelectedClubId } from '../../../../redux-modules/clubs/slice.ts';
-import { Logout, PersonAdd } from '@mui/icons-material';
+import { Logout } from '@mui/icons-material';
 import { setAccessToken, setSelectedContent } from '../../../../redux-modules/app/slice.ts';
 
 const styles: StylesTheme = {
     iconButton: {
-        color: (theme) => theme.palette.text.primary,
-        ml: 2
+        color: (theme) => theme.palette.text.primary
     }
 };
 

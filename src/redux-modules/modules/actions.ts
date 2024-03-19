@@ -15,7 +15,5 @@ export const loadModules = () => async (dispatch: AppDispatch, getState: GetAppS
         return;
     }
 
-    console.log(data);
-
     dispatch(setModules(data));
 };

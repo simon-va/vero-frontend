@@ -8,8 +8,6 @@ export const selectMembers = (state: RootState) => selectMembersState(state).mem
 export const selectMemberByTeam = (state: RootState, teamId: number) => {
     const team = selectTeams(state).find((team) => team.id === teamId);
 
-    console.log(team);
-
     const members = selectMembers(state);
 
     return members.filter((member) => team?.memberIds.includes(member.id));

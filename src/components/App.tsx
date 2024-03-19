@@ -40,7 +40,6 @@ const App: FC = () => {
         const selectClubId = Number(localStorage.getItem('selectedClubId'));
 
         if (token) {
-            console.log('token', token);
             dispatch(setAccessToken(token));
         }
         if (selectClubId) {

@@ -17,8 +17,6 @@ export const handleLogin = ({ password, email }: HandleLoginProps) => async (dis
         return { message: 'Email oder Passwort ist falsch ' };
     }
 
-    console.log(data);
-
     localStorage.setItem('accessToken', data.token);
 
     dispatch(setAccessToken(data.token));

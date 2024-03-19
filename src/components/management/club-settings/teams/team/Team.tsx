@@ -31,8 +31,6 @@ const Team: FC<TeamProps> = ({ team }) => {
     const membersSelector = useCallback((state: RootState) => selectMemberByTeam(state, team.id), [team.id]);
     const members = useAppSelector(membersSelector);
 
-    console.log(members);
-
     return (
         <Paper sx={ styles.root }>
             <Typography variant="h6" sx={ styles.title }>{ team.name }</Typography>
