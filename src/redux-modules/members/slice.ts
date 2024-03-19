@@ -15,9 +15,16 @@ const slice = createSlice({
     reducers: {
         setMembers(state, action: PayloadAction<Member[]>) {
             state.members = action.payload;
+        },
+        updateMember(state, action: PayloadAction<Partial<Member>>) {
+            const member = state.members.find((member) => member.id === action.payload.id);
+
+            if (member) {
+                Object.assign(member, action.payload);
+            }
         }
     }
 });
 
-export const { setMembers } = slice.actions;
+export const { setMembers, updateMember } = slice.actions;
 export const membersReducer = slice.reducer;

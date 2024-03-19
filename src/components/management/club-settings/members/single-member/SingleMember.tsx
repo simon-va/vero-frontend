@@ -13,37 +13,37 @@ const SingleMember: FC<SingleMemberProps> = ({ member }) => {
             <StringField
                 value={ member.firstName }
                 memberId={ member.id }
-                key="firstName"
+                keyAtt="firstName"
             />
             <StringField
                 value={ member.lastName }
                 memberId={ member.id }
-                key="lastName"
+                keyAtt="lastName"
             />
             <StringField
                 value={ member.email }
                 memberId={ member.id }
-                key="email"
+                keyAtt="email"
             />
             <StringField
                 value={ member.phone }
                 memberId={ member.id }
-                key="phone"
+                keyAtt="phone"
             />
             <StringField
                 value={ member.address }
                 memberId={ member.id }
-                key="address"
+                keyAtt="address"
             />
             <StringField
                 value={ member.city }
                 memberId={ member.id }
-                key="city"
+                keyAtt="city"
             />
             <StringField
                 value={ member.zipCode }
                 memberId={ member.id }
-                key="zipCode"
+                keyAtt="zipCode"
             />
         </TableRow>
     );

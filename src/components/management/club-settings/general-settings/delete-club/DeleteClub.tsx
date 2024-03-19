@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux.ts';
 import { selectSelectedClub } from '../../../../../redux-modules/clubs/selectors.ts';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
@@ -31,7 +31,7 @@ const DeleteClub: FC = () => {
         setOpen(false);
     };
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputName(event.target.value);
         setIsNameValid(event.target.value === club.name);
     };
