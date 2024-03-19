@@ -4,7 +4,7 @@ import { getMembers } from '../../api/members/get.ts';
 import { selectSelectedClubId } from '../clubs/selectors.ts';
 import { addMember, deleteMember, setMembers, updateMember } from './slice.ts';
 import { patchMember } from '../../api/members/patch.ts';
-import { deleteMembers } from '../../api/members/delete.ts';
+import { deleteMember } from '../../api/members/delete.ts';
 import { postMember } from '../../api/members/post.ts';
 import { Member } from '../../types/members.ts';
 
@@ -51,7 +51,7 @@ export const saveMemberDelete = (memberId: number) => async (dispatch: AppDispat
     const accessToken = selectAccessToken(state);
     const clubId = selectSelectedClubId(state)!;
 
-    const { status } = await deleteMembers({ accessToken, clubId, memberId });
+    const { status } = await deleteMember({ accessToken, clubId, memberId });
 
     if (status !== 204) {
         return;

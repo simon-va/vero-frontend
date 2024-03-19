@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import {
-    Divider, Paper,
+    Divider,
     Table,
     TableBody,
     TableCell,
-    TableContainer,
     TableHead,
     TableRow,
     Typography

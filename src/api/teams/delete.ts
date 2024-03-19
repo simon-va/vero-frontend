@@ -1,20 +1,20 @@
 import { ApiFunctionResult } from '../../types/api.ts';
 import { request } from '../../utils/request.ts';
 
-interface DeleteMemberProps {
+interface DeleteTeamProps {
     accessToken: string | null;
     clubId: number;
-    memberId: number;
+    teamId: number;
 }
 
-export const deleteMember = async (
+export const deleteTeam = async (
     {
         accessToken,
         clubId,
-        memberId
-    }: DeleteMemberProps): Promise<ApiFunctionResult> => {
+        teamId
+    }: DeleteTeamProps): Promise<ApiFunctionResult> => {
     const response = await request({
-        route: `/clubs/${ clubId }/members/${ memberId }`,
+        route: `/clubs/${ clubId }/teams/${ teamId }`,
         method: 'DELETE',
         accessToken
     });

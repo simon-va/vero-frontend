@@ -3,7 +3,7 @@ import { request } from '../../utils/request.ts';
 import { Team } from '../../types/teams.ts';
 
 interface GetTeamsProps {
-    accessToken: string;
+    accessToken: string | null;
     clubId: number;
 }
 

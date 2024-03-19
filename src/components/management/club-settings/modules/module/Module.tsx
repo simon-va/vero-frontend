@@ -29,7 +29,7 @@ const Module: FC<ModuleProps> = ({ module, handleExpand, isExpanded }) => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
-                height: '53px',
+                height: '53px'
             } }>
                 <IconButton
                     edge="end"
@@ -38,9 +38,10 @@ const Module: FC<ModuleProps> = ({ module, handleExpand, isExpanded }) => {
                 >
                     { isExpanded ? <ExpandLess/> : <ExpandMore/> }
                 </IconButton>
-                <Typography onClick={ () => handleExpand(id) } sx={ { flex: 1, userSelect: 'none', cursor: 'pointer' } }>
+                <Typography onClick={ () => handleExpand(id) }
+                            sx={ { flex: 1, userSelect: 'none', cursor: 'pointer' } }>
                     { name } { isComingSoon && (
-                    <Typography component='span' sx={ { fontSize: '10px', opacity: 0.8 } }>(Coming soon)</Typography>
+                    <Typography component="span" sx={ { fontSize: '10px', opacity: 0.8 } }>(Coming soon)</Typography>
                 ) }
                 </Typography>
                 <Checkbox
@@ -51,7 +52,7 @@ const Module: FC<ModuleProps> = ({ module, handleExpand, isExpanded }) => {
                 />
             </Box>
             <Collapse in={ isExpanded } timeout="auto" unmountOnExit>
-                <Typography variant="body2" gutterBottom sx={ { marginLeft: '40px' } }>
+                <Typography variant="body2" gutterBottom sx={ { margin: '0 12px 12px 40px' } }>
                     { description }
                 </Typography>
             </Collapse>

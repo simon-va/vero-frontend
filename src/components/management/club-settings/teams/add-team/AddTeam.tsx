@@ -2,12 +2,11 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextFie
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { FC, useState } from 'react';
 import { useAppDispatch } from '../../../../../hooks/redux.ts';
-import { saveMemberAdd } from '../../../../../redux-modules/members/actions.ts';
+import { saveTeamAdd } from '../../../../../redux-modules/teams/actions.ts';
 
-const AddMember: FC = () => {
+const AddTeam: FC = () => {
     const [open, setOpen] = useState(false);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [localTeamName, setLocalTeamName] = useState('');
 
     const dispatch = useAppDispatch();
 
@@ -20,49 +19,41 @@ const AddMember: FC = () => {
     };
 
     const handleSave = () => {
-        void dispatch(saveMemberAdd({ firstName, lastName }));
+        void dispatch(saveTeamAdd({ name: localTeamName }));
 
         setOpen(false);
 
-        setFirstName('');
-        setLastName('');
+        setLocalTeamName('');
     };
 
-    const isButtonDisabled = firstName.trim() === '' || lastName.trim() === '';
+    const isButtonDisabled = localTeamName.trim() === '';
+
 
     return (
         <>
             <Box
                 sx={ {
-                    mt: '12px',
+                    mt: '12px'
                 } }
             >
                 <Button
-                    startIcon={ <AddOutlinedIcon/> }
                     onClick={ handleOpen }
+                    startIcon={ <AddOutlinedIcon/> }
                 >
-                    Mitglied hinzufügen
+                    Team hinzufügen
                 </Button>
             </Box>
             <Dialog open={ open } onClose={ handleClose }>
-                <DialogTitle>Neues Mitglied hinzufügen</DialogTitle>
+                <DialogTitle>Neues Team hinzufügen</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="firstName"
-                        label="Vorname"
+                        id="teamName"
+                        label="Teamname"
                         fullWidth
-                        value={ firstName }
-                        onChange={ (e) => setFirstName(e.target.value) }
-                    />
-                    <TextField
-                        margin="dense"
-                        id="lastName"
-                        label="Nachname"
-                        fullWidth
-                        value={ lastName }
-                        onChange={ (e) => setLastName(e.target.value) }
+                        value={ localTeamName }
+                        onChange={ (e) => setLocalTeamName(e.target.value) }
                     />
                 </DialogContent>
                 <DialogActions>
@@ -81,4 +72,4 @@ const AddMember: FC = () => {
     );
 };
 
-export default AddMember;
+export default AddTeam;

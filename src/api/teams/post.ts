@@ -1,21 +1,21 @@
-import { Member } from '../../types/members.ts';
 import { ApiFunctionResult } from '../../types/api.ts';
 import { request } from '../../utils/request.ts';
+import { Team } from '../../types/teams.ts';
 
-interface PostMemberProps {
+interface PostTeamProps {
     accessToken: string | null;
     clubId: number;
-    payload: Pick<Member, 'firstName' | 'lastName'>;
+    payload: Pick<Team, 'name'>;
 }
 
-export const postMember = async (
+export const postTeam = async (
     {
         accessToken,
         clubId,
         payload
-    }: PostMemberProps): Promise<ApiFunctionResult<Member>> => {
-    const response = await request<Member, Pick<Member, 'firstName' | 'lastName'>>({
-        route: `/clubs/${ clubId }/members`,
+    }: PostTeamProps): Promise<ApiFunctionResult<Team>> => {
+    const response = await request<Team, Pick<Team, 'name'>>({
+        route: `/clubs/${ clubId }/teams`,
         method: 'POST',
         accessToken,
         body: payload

@@ -4,7 +4,6 @@ import { useAppSelector } from '../../../../hooks/redux.ts';
 import {
     Box,
     Divider,
-    Paper,
     Table,
     TableCell,
     TableHead,
