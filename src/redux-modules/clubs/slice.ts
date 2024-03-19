@@ -28,6 +28,10 @@ const slice = createSlice({
         addClub(state, action: PayloadAction<Club>) {
             state.clubs.push(action.payload);
             state.selectedClubId = action.payload.id;
+        },
+        removeClub(state, action: PayloadAction<Club['id']>) {
+            state.clubs = state.clubs.filter((club) => club.id !== action.payload);
+            state.selectedClubId = null;
         }
     }
 });
@@ -35,6 +39,7 @@ const slice = createSlice({
 export const {
     setClubs,
     setSelectedClubId,
-    addClub
+    addClub,
+    removeClub
 } = slice.actions;
 export const clubsReducer = slice.reducer;

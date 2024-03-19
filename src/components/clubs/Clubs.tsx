@@ -8,6 +8,7 @@ import { StylesTheme } from '../../types/mui.ts';
 import { setAccessToken } from '../../redux-modules/app/slice.ts';
 import MyClubs from './my-clubs/MyClubs.tsx';
 import AddClub from './add-club/AddClub.tsx';
+import { setSelectedClubId } from '../../redux-modules/clubs/slice.ts';
 
 interface TabPanelProps {
     children?: ReactNode;
@@ -63,8 +64,10 @@ const Clubs: FC = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('selectedClubId');
 
         dispatch(setAccessToken(null));
+        dispatch(setSelectedClubId(null));
     };
 
     return (

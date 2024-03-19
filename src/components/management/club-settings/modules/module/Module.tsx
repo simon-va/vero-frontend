@@ -37,7 +37,7 @@ const Module: FC<ModuleProps> = ({ module, handleExpand, isExpanded }) => {
                 >
                     { isExpanded ? <ExpandLess/> : <ExpandMore/> }
                 </IconButton>
-                <Typography onClick={ () => handleExpand(id) } sx={ { flex: 1 } }>
+                <Typography onClick={ () => handleExpand(id) } sx={ { flex: 1, userSelect: 'none', cursor: 'pointer' } }>
                     { name } { isComingSoon && (
                     <Typography component='span' sx={ { fontSize: '10px', opacity: 0.8 } }>(Coming soon)</Typography>
                 ) }

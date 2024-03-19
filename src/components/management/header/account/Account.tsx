@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/redux.ts';
 import { selectClubs } from '../../../../redux-modules/clubs/selectors.ts';
 import { setSelectedClubId } from '../../../../redux-modules/clubs/slice.ts';
 import { Logout, PersonAdd } from '@mui/icons-material';
-import { setAccessToken } from '../../../../redux-modules/app/slice.ts';
+import { setAccessToken, setSelectedContent } from '../../../../redux-modules/app/slice.ts';
 
 const styles: StylesTheme = {
     iconButton: {
@@ -49,6 +49,7 @@ const Account: FC = () => {
         localStorage.removeItem('selectedClubId');
         localStorage.removeItem('accessToken');
 
+        dispatch(setSelectedContent(-1));
         dispatch(setSelectedClubId(null));
         dispatch(setAccessToken(null));
     };
