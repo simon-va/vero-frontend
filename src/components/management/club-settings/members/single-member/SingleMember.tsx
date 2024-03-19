@@ -21,7 +21,7 @@ const SingleMember: FC<SingleMemberProps> = ({ member }) => {
         <TableRow key={ member.id }>
             <TableCell
                 sx={{
-                    padding: '0 0 0 4px',
+                    padding: '2px',
                 }}
             >
                 <IconButton

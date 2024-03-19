@@ -35,12 +35,19 @@ const Modules: FC = () => {
                 >
                     <TableHead>
                         <TableRow>
-                            <TableCell>
+                            <TableCell
+                                sx={ {
+                                    padding: '10px 6px 10px 16px'
+                                } }
+                            >
                                 Modul
                             </TableCell>
                             <TableCell
                                 align="right"
-                                sx={ { fontWeight: 'bold' } }
+                                sx={ {
+                                    fontWeight: 'bold',
+                                    padding: '10px 16px 10px 6px'
+                                } }
                             >
                                 Benutzen
                             </TableCell>

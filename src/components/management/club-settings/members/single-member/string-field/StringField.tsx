@@ -31,10 +31,9 @@ const StringField: FC<StringFieldProps> = ({ value, memberId, keyAtt }) => {
 
     return (
         <TableCell
-            sx={{
-                paddingLeft: '6px',
-                paddingRight: '6px',
-            }}
+            sx={ {
+                padding: '0 6px'
+            } }
         >
             <input
                 type="text"

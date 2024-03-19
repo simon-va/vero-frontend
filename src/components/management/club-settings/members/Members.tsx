@@ -46,7 +46,7 @@ const titles = [
     {
         name: 'PLZ',
         width: 'auto'
-    },
+    }
 ];
 
 const Members: FC = () => {
@@ -69,7 +69,13 @@ const Members: FC = () => {
                     <TableHead>
                         <TableRow>
                             { titles.map((title) => (
-                                <TableCell key={ title?.key ?? title.name } style={ { width: title.width, paddingLeft: '6px', paddingRight: '6px' } }>
+                                <TableCell
+                                    key={ title?.key ?? title.name }
+                                    sx={ {
+                                        width: title.width,
+                                        padding: '10px 6px'
+                                    } }
+                                >
                                     { title.name }
                                 </TableCell>
                             )) }
