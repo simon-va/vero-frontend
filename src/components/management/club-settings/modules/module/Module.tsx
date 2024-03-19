@@ -28,7 +28,8 @@ const Module: FC<ModuleProps> = ({ module, handleExpand, isExpanded }) => {
             <Box sx={ {
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px'
+                gap: '12px',
+                height: '53px',
             } }>
                 <IconButton
                     edge="end"

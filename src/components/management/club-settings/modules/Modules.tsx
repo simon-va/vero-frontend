@@ -3,7 +3,8 @@ import { selectModules } from '../../../../redux-modules/modules/selectors.ts';
 import { useAppSelector } from '../../../../hooks/redux.ts';
 import {
     Box,
-    Divider,
+    Divider, Paper, Table, TableBody, TableCell,
+    TableContainer, TableHead, TableRow,
     Typography
 } from '@mui/material';
 import Module from './module/Module.tsx';
@@ -25,24 +26,28 @@ const Modules: FC = () => {
                 werden. Keine Sorge, die Daten bleiben erhalten, auch wenn das Modul nicht benuzt wird.
             </Typography>
             <Divider/>
-
-            <Box sx={ {
+            <Paper sx={ {
                 marginTop: '12px',
                 width: '540px'
             } }>
-                <Box sx={ {
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    padding: '12px'
-                } }>
-                    <Typography variant="body1" sx={ { fontWeight: 'bold', paddingLeft: 1 } }>
-                        Plugins
-                    </Typography>
-                    <Typography variant="body1" sx={ { fontWeight: 'bold' } }>
-                        Benutzen
-                    </Typography>
-                </Box>
-                <Divider/>
+                <Table
+                    stickyHeader
+                >
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>
+                                Modul
+                            </TableCell>
+                            <TableCell
+                                align="right"
+                                sx={ { fontWeight: 'bold' } }
+                            >
+                                Benutzen
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+
+                </Table>
                 { modules.map((module) => (
                     <Module
                         module={ module }
@@ -51,7 +56,7 @@ const Modules: FC = () => {
                         isExpanded={ expandedModuleId === module.id }
                     />
                 )) }
-            </Box>
+            </Paper>
         </Box>
     );
 };
