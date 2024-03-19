@@ -15,6 +15,11 @@ import SingleMember from './single-member/SingleMember.tsx';
 
 const titles = [
     {
+        name: '',
+        width: 'auto',
+        key: 'delete'
+    },
+    {
         name: 'Vorname',
         width: '80px'
     },
@@ -41,7 +46,7 @@ const titles = [
     {
         name: 'PLZ',
         width: 'auto'
-    }
+    },
 ];
 
 const Members: FC = () => {
@@ -64,7 +69,7 @@ const Members: FC = () => {
                     <TableHead>
                         <TableRow>
                             { titles.map((title) => (
-                                <TableCell key={ title.name } style={ { width: title.width } }>
+                                <TableCell key={ title?.key ?? title.name } style={ { width: title.width, paddingLeft: '6px', paddingRight: '6px' } }>
                                     { title.name }
                                 </TableCell>
                             )) }

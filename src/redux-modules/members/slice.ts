@@ -22,9 +22,12 @@ const slice = createSlice({
             if (member) {
                 Object.assign(member, action.payload);
             }
+        },
+        deleteMember(state, action: PayloadAction<number>) {
+            state.members = state.members.filter((member) => member.id !== action.payload);
         }
     }
 });
 
-export const { setMembers, updateMember } = slice.actions;
+export const { setMembers, updateMember, deleteMember } = slice.actions;
 export const membersReducer = slice.reducer;

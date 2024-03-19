@@ -25,7 +25,7 @@ const DeleteClub: FC = () => {
     const handleDelete = () => {
         void dispatch(saveClubRemove());
 
-        // Add your delete logic here
+        // Add your delete.ts logic here
         setInputName('');
         setIsNameValid(false);
         setOpen(false);

@@ -1,15 +1,37 @@
 import { FC } from 'react';
 import { Member } from '../../../../../types/members.ts';
-import { TableRow } from '@mui/material';
+import { IconButton, TableCell, TableRow } from '@mui/material';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import StringField from './string-field/StringField.tsx';
+import { useAppDispatch } from '../../../../../hooks/redux.ts';
+import { saveMemberDelete } from '../../../../../redux-modules/members/actions.ts';
 
 interface SingleMemberProps {
     member: Member;
 }
 
 const SingleMember: FC<SingleMemberProps> = ({ member }) => {
+    const dispatch = useAppDispatch();
+
+    const handleDeleteMember = () => {
+        void dispatch(saveMemberDelete(member.id));
+    };
+
     return (
         <TableRow key={ member.id }>
+            <TableCell
+                sx={{
+                    padding: '0 0 0 4px',
+                }}
+            >
+                <IconButton
+                    onClick={ handleDeleteMember }
+                >
+                    <DeleteOutlineOutlinedIcon
+                        color="error"
+                    />
+                </IconButton>
+            </TableCell>
             <StringField
                 value={ member.firstName }
                 memberId={ member.id }

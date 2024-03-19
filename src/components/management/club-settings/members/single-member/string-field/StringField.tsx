@@ -21,7 +21,6 @@ const StringField: FC<StringFieldProps> = ({ value, memberId, keyAtt }) => {
     };
 
     const handleBlur = () => {
-        console.log(keyAtt);
         void dispatch(saveMemberUpdate({
             memberId,
             payload: {
@@ -31,7 +30,12 @@ const StringField: FC<StringFieldProps> = ({ value, memberId, keyAtt }) => {
     };
 
     return (
-        <TableCell>
+        <TableCell
+            sx={{
+                paddingLeft: '6px',
+                paddingRight: '6px',
+            }}
+        >
             <input
                 type="text"
                 style={ {
