@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/redux.ts';
 import { selectClubs } from '../../../../redux-modules/clubs/selectors.ts';
 import { setSelectedClubId } from '../../../../redux-modules/clubs/slice.ts';
 import { Logout } from '@mui/icons-material';
-import { setAccessToken, setSelectedContent } from '../../../../redux-modules/app/slice.ts';
+import { handleLogout, resetSelectedClub } from '../../../../redux-modules/app/actions.ts';
 
 const styles: StylesTheme = {
     iconButton: {
@@ -42,64 +42,61 @@ const Account: FC = () => {
         dispatch(setSelectedClubId(clubId));
     };
 
-    const handleLogout = () => {
+    const handleLogoutClick = () => {
         handleClose();
 
-        localStorage.removeItem('selectedClubId');
-        localStorage.removeItem('accessToken');
-
-        dispatch(setSelectedContent(-1));
-        dispatch(setSelectedClubId(null));
-        dispatch(setAccessToken(null));
+        dispatch(handleLogout());
     };
 
     const handleCreateClub = () => {
         handleClose();
 
-        dispatch(setSelectedClubId(null));
+        dispatch(resetSelectedClub({
+            preventLocalStorageRemove: true
+        }));
     };
 
     return (
         <>
             <IconButton
-                onClick={ handleClick }
+                onClick={handleClick}
                 size="small"
-                sx={ styles.iconButton }
-                aria-controls={ open ? 'account-menu' : undefined }
+                sx={styles.iconButton}
+                aria-controls={open ? 'account-menu' : undefined}
                 aria-haspopup="true"
-                aria-expanded={ open ? 'true' : undefined }
+                aria-expanded={open ? 'true' : undefined}
             >
                 <AccountCircleOutlinedIcon/>
             </IconButton>
             <Menu
-                anchorEl={ anchorEl }
+                anchorEl={anchorEl}
                 id="account-menu"
-                open={ open }
-                onClose={ handleClose }
-                onClick={ handleClose }
+                open={open}
+                onClose={handleClose}
+                onClick={handleClose}
 
-                transformOrigin={ { horizontal: 'right', vertical: 'top' } }
-                anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <Typography variant="h6" sx={ { textAlign: 'center' } }>Meine Vereine</Typography>
+                <Typography variant="h6" sx={{ textAlign: 'center' }}>Meine Vereine</Typography>
                 {
                     clubs.map((club) => (
                         <MenuItem
-                            key={ club.id }
-                            onClick={ () => handleSelectClub(club.id) }
+                            key={club.id}
+                            onClick={() => handleSelectClub(club.id)}
                         >
-                            { club.name }
+                            {club.name}
                         </MenuItem>
                     ))
                 }
                 <Divider/>
-                <MenuItem onClick={ handleCreateClub }>
+                <MenuItem onClick={handleCreateClub}>
                     <ListItemIcon>
                         <GroupAddIcon fontSize="small"/>
                     </ListItemIcon>
                     Verein erstellen
                 </MenuItem>
-                <MenuItem onClick={ handleLogout }>
+                <MenuItem onClick={handleLogoutClick}>
                     <ListItemIcon>
                         <Logout fontSize="small"/>
                     </ListItemIcon>

@@ -1,6 +1,7 @@
 import { AppDispatch } from '../index.ts';
 import { postLogin } from '../../api/user/post.ts';
-import { setAccessToken } from './slice.ts';
+import { setAccessToken, setSelectedContent } from './slice.ts';
+import { setSelectedClubId } from '../clubs/slice.ts';
 
 interface HandleLoginProps {
     email: string;
@@ -22,4 +23,24 @@ export const handleLogin = ({ password, email }: HandleLoginProps) => async (dis
     dispatch(setAccessToken(data.token));
 
     return { message: null };
+};
+
+interface ResetSelectedClubProps {
+    preventLocalStorageRemove?: boolean;
+}
+
+export const resetSelectedClub = ({ preventLocalStorageRemove }: ResetSelectedClubProps = {}) => (dispatch: AppDispatch) => {
+    if (!preventLocalStorageRemove) {
+        localStorage.removeItem('selectedClubId');
+    }
+
+    dispatch(setSelectedClubId(null));
+    dispatch(setSelectedContent(-1));
+};
+
+export const handleLogout = () => (dispatch: AppDispatch) => {
+    localStorage.removeItem('accessToken');
+    dispatch(setAccessToken(null));
+
+    dispatch(resetSelectedClub());
 };

@@ -9,6 +9,7 @@ import { deleteModuleFromClub } from '../../api/module/delete.ts';
 import { setModuleSelected } from '../modules/slice.ts';
 import { postClub } from '../../api/club/post.ts';
 import { deleteClub } from '../../api/club/delete.ts';
+import { resetSelectedClub } from '../app/actions.ts';
 
 export const loadClubs = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const accessToken = selectAccessToken(getState());
@@ -93,7 +94,6 @@ export const saveClubRemove = () => async (dispatch: AppDispatch, getState: GetA
         return;
     }
 
-    localStorage.removeItem('selectedClubId');
-
+    dispatch(resetSelectedClub());
     dispatch(removeClub(clubId));
 };
