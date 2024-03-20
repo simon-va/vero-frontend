@@ -11,6 +11,7 @@ import {
     Typography
 } from '@mui/material';
 import Module from './module/Module.tsx';
+import styles from './modules.styles.ts';
 
 
 const Modules: FC = () => {
@@ -24,33 +25,25 @@ const Modules: FC = () => {
 
     return (
         <Box>
-            <Typography variant="body1" sx={ { p: 2 } }>
+            <Typography variant="body1" sx={styles.intro}>
                 Module sind Erweiterungen für die Verwaltung des Vereins. Sie können beliebig hinzugefügt oder entfernt
                 werden. Keine Sorge, die Daten bleiben erhalten, auch wenn das Modul nicht benuzt wird.
             </Typography>
             <Divider/>
-            <Box sx={ {
-                marginTop: '12px',
-                width: '540px'
-            } }>
+            <Box sx={styles.tableWrapper}>
                 <Table
                     stickyHeader
                 >
                     <TableHead>
                         <TableRow>
                             <TableCell
-                                sx={ {
-                                    padding: '10px 6px 10px 16px'
-                                } }
+                                sx={styles.moduleName}
                             >
                                 Modul
                             </TableCell>
                             <TableCell
                                 align="right"
-                                sx={ {
-                                    fontWeight: 'bold',
-                                    padding: '10px 16px 10px 6px'
-                                } }
+                                sx={styles.useName}
                             >
                                 Benutzen
                             </TableCell>
@@ -58,14 +51,14 @@ const Modules: FC = () => {
                     </TableHead>
 
                 </Table>
-                { modules.map((module) => (
+                {modules.map((module) => (
                     <Module
-                        module={ module }
-                        key={ module.id }
-                        handleExpand={ handleExpand }
-                        isExpanded={ expandedModuleId === module.id }
+                        module={module}
+                        key={module.id}
+                        handleExpand={handleExpand}
+                        isExpanded={expandedModuleId === module.id}
                     />
-                )) }
+                ))}
             </Box>
         </Box>
     );

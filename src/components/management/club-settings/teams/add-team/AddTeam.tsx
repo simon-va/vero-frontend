@@ -40,17 +40,17 @@ const AddTeam: FC = () => {
                     onClick={ handleOpen }
                     startIcon={ <AddOutlinedIcon/> }
                 >
-                    Team hinzufügen
+                    Gruppe hinzufügen
                 </Button>
             </Box>
             <Dialog open={ open } onClose={ handleClose }>
-                <DialogTitle>Neues Team hinzufügen</DialogTitle>
+                <DialogTitle>Neue Gruppe hinzufügen</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="teamName"
-                        label="Teamname"
+                        id="groupName"
+                        label="Gruppenname"
                         fullWidth
                         value={ localTeamName }
                         onChange={ (e) => setLocalTeamName(e.target.value) }

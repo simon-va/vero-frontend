@@ -12,6 +12,7 @@ import { useAppSelector } from '../../../../hooks/redux.ts';
 import { selectMembers } from '../../../../redux-modules/members/selectors.ts';
 import SingleMember from './single-member/SingleMember.tsx';
 import AddMember from './add-member/AddMember.tsx';
+import styles from './members.styles.ts';
 
 const titles = [
     {
@@ -54,7 +55,7 @@ const Members: FC = () => {
 
     return (
         <>
-            <Typography variant="body1" sx={ { p: 2 } }>
+            <Typography variant="body1" sx={styles.intro}>
                 Mitglieder machen den Verein zu dem, was er ist. Hier kannst du Mitglieder hinzufügen, bearbeiten und
                 löschen.
             </Typography>
@@ -62,29 +63,27 @@ const Members: FC = () => {
             <AddMember/>
             <Table
                 stickyHeader
-                sx={ {
-                    mt: '12px'
-                } }
+                sx={styles.table}
             >
                 <TableHead>
                     <TableRow>
-                        { titles.map((title) => (
+                        {titles.map((title) => (
                             <TableCell
-                                key={ title?.key ?? title.name }
-                                sx={ {
+                                key={title?.key ?? title.name}
+                                sx={{
                                     width: title.width,
                                     padding: '10px 6px'
-                                } }
+                                }}
                             >
-                                { title.name }
+                                {title.name}
                             </TableCell>
-                        )) }
+                        ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    { members.map((member) => (
-                        <SingleMember key={ member.id } member={ member }/>
-                    )) }
+                    {members.map((member) => (
+                        <SingleMember key={member.id} member={member}/>
+                    ))}
                 </TableBody>
             </Table>
         </>

@@ -5,7 +5,7 @@ const selectMembersState = (state: RootState) => state.members;
 
 export const selectMembers = (state: RootState) => selectMembersState(state).members;
 
-export const selectMemberByTeam = (state: RootState, teamId: number) => {
+export const selectMemberByTeamId = (state: RootState, teamId: number) => {
     const team = selectTeams(state).find((team) => team.id === teamId);
 
     const members = selectMembers(state);

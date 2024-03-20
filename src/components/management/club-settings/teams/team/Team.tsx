@@ -1,10 +1,12 @@
 import { Team as ITeam } from '../../../../../types/teams.ts';
 import { FC } from 'react';
-import { Box, Collapse, Divider, IconButton, Typography } from '@mui/material';
+import { Box, Collapse, Divider, IconButton, List, ListItem, Typography } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { useAppDispatch } from '../../../../../hooks/redux.ts';
+import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux.ts';
 import { saveTeamDelete } from '../../../../../redux-modules/teams/actions.ts';
+import { RootState } from '../../../../../redux-modules';
+import { selectMemberByTeamId } from '../../../../../redux-modules/members/selectors.ts';
 
 interface TeamProps {
     team: ITeam;
@@ -14,6 +16,7 @@ interface TeamProps {
 
 const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
     const { id, name, memberIds } = team;
+    const members = useAppSelector((state: RootState) => selectMemberByTeamId(state, id));
 
     const dispatch = useAppDispatch();
 
@@ -23,46 +26,53 @@ const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
 
     return (
         <>
-            <Box sx={ {
+            <Box sx={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
                 height: '53px'
-            } }>
+            }}>
                 <IconButton
                     edge="end"
-                    onClick={ () => handleExpand(id) }
-                    sx={ { backgroundColor: 'transparent' } }
+                    onClick={() => handleExpand(id)}
+                    sx={{ backgroundColor: 'transparent' }}
                 >
-                    { isExpanded ? <ExpandLess/> : <ExpandMore/> }
+                    {isExpanded ? <ExpandLess/> : <ExpandMore/>}
                 </IconButton>
                 <Typography
-                    onClick={ () => handleExpand(id) }
-                    sx={ { flex: 1, userSelect: 'none', cursor: 'pointer' } }
+                    onClick={() => handleExpand(id)}
+                    sx={{ flex: 1, userSelect: 'none', cursor: 'pointer' }}
                 >
-                    { name }
+                    {name}
                 </Typography>
                 <IconButton
-                    sx={ {
+                    sx={{
                         marginRight: '8px'
-                    } }
-                    onClick={ handleDelete }
+                    }}
+                    onClick={handleDelete}
                 >
                     <DeleteOutlineOutlinedIcon
                         color="error"
                     />
                 </IconButton>
             </Box>
-            <Collapse in={ isExpanded } timeout="auto" unmountOnExit>
+            <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                 <Box
-                    sx={ { margin: '0 0 12px 40px' } }
+                    sx={{ margin: '0 0 12px 40px' }}
                 >
-                    {
-                        memberIds.map((memberId) => (
-                            <Box key={memberId}>{ memberId }</Box>
-                        ))
-                    }
-                    { memberIds.length === 0 && <Box>Keine Mitglieder</Box> }
+                    {members.length > 0 ? (
+                        <List
+                            disablePadding
+                        >
+                            {
+                                members.map(({ id: memberId, firstName, lastName }) => (
+                                    <ListItem disablePadding key={`${id}-${memberId}`}>{firstName} {lastName}</ListItem>
+                                ))
+                            }
+                        </List>
+                    ) : (
+                        <Box>Keine Mitglieder</Box>
+                    )}
                 </Box>
             </Collapse>
             <Divider/>

@@ -1,12 +1,11 @@
 import { StylesTheme } from '../../../../types/mui.ts';
 
 const styles: StylesTheme = {
-    root: {
-        marginTop: '12px'
+    intro: {
+        p: 2
     },
-    tabWrapper: {
-        borderBottom: 1,
-        borderColor: 'divider'
+    table: {
+        mt: '12px'
     }
 };
 

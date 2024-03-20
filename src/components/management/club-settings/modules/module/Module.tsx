@@ -4,6 +4,7 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import type { Module as IModule } from '../../../../../types/module';
 import { useAppDispatch } from '../../../../../hooks/redux.ts';
 import { saveModuleFromClubDelete, saveModuleToClubAdd } from '../../../../../redux-modules/clubs/actions.ts';
+import styles from './module.styles.ts';
 
 interface ModuleProps {
     module: IModule;
@@ -25,35 +26,32 @@ const Module: FC<ModuleProps> = ({ module, handleExpand, isExpanded }) => {
 
     return (
         <>
-            <Box sx={ {
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                height: '53px'
-            } }>
+            <Box sx={styles.module}>
                 <IconButton
                     edge="end"
-                    onClick={ () => handleExpand(id) }
-                    sx={ { backgroundColor: 'transparent' } }
+                    onClick={() => handleExpand(id)}
+                    sx={styles.expandButton}
                 >
-                    { isExpanded ? <ExpandLess/> : <ExpandMore/> }
+                    {isExpanded ? <ExpandLess/> : <ExpandMore/>}
                 </IconButton>
-                <Typography onClick={ () => handleExpand(id) }
-                            sx={ { flex: 1, userSelect: 'none', cursor: 'pointer' } }>
-                    { name } { isComingSoon && (
-                    <Typography component="span" sx={ { fontSize: '10px', opacity: 0.8 } }>(Coming soon)</Typography>
-                ) }
+                <Typography
+                    onClick={() => handleExpand(id)}
+                    sx={styles.moduleText}
+                >
+                    {name} {isComingSoon && (
+                    <Typography component="span" sx={styles.commingSon}>(Coming soon)</Typography>
+                )}
                 </Typography>
                 <Checkbox
-                    disabled={ isComingSoon }
-                    sx={ { marginRight: '26px' } }
-                    checked={ isSelected }
-                    onChange={ handleClick }
+                    disabled={isComingSoon}
+                    sx={styles.checkBox}
+                    checked={isSelected}
+                    onChange={handleClick}
                 />
             </Box>
-            <Collapse in={ isExpanded } timeout="auto" unmountOnExit>
-                <Typography variant="body2" gutterBottom sx={ { margin: '0 12px 12px 40px' } }>
-                    { description }
+            <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+                <Typography variant="body2" gutterBottom sx={styles.collapse}>
+                    {description}
                 </Typography>
             </Collapse>
             <Divider/>
