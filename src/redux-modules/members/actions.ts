@@ -8,7 +8,8 @@ import { deleteMember } from '../../api/members/delete.ts';
 import { postMember } from '../../api/members/post.ts';
 import { Member } from '../../types/members.ts';
 import { selectMembers } from './selectors.ts';
-import { setSelectedClubId } from '../clubs/slice.ts';
+import { removeClub } from '../clubs/slice.ts';
+import { resetSelectedClub } from '../app/actions.ts';
 
 export const loadMembers = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const state = getState();
@@ -63,8 +64,8 @@ export const saveMemberDelete = (memberId: number) => async (dispatch: AppDispat
 
     if (members.length === 1) {
         // no members, so club is deleted
-        localStorage.removeItem('selectedClubId');
-        dispatch(setSelectedClubId(null));
+        dispatch(resetSelectedClub());
+        dispatch(removeClub(clubId));
     }
 
     dispatch(removeMember(memberId));

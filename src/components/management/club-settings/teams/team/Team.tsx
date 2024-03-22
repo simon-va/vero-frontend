@@ -27,24 +27,24 @@ const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
 
     return (
         <>
-            <Box sx={{
+            <Box sx={ {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
                 height: '53px'
-            }}>
+            } }>
                 <IconButton
                     edge="end"
-                    onClick={() => handleExpand(id)}
-                    sx={{ backgroundColor: 'transparent' }}
+                    onClick={ () => handleExpand(id) }
+                    sx={ { backgroundColor: 'transparent' } }
                 >
-                    {isExpanded ? <ExpandLess/> : <ExpandMore/>}
+                    { isExpanded ? <ExpandLess/> : <ExpandMore/> }
                 </IconButton>
                 <Typography
-                    onClick={() => handleExpand(id)}
-                    sx={{ flex: 1, userSelect: 'none', cursor: 'pointer' }}
+                    onClick={ () => handleExpand(id) }
+                    sx={ { flex: 1, userSelect: 'none', cursor: 'pointer' } }
                 >
-                    {name}
+                    { name }
                 </Typography>
                 {
                     !isSystemTeam && (
@@ -61,24 +61,25 @@ const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
                     )
                 }
             </Box>
-            <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+            <Collapse in={ isExpanded } timeout="auto" unmountOnExit>
                 <Box
-                    sx={{ margin: '0 0 12px 40px' }}
+                    sx={ { margin: '0 0 12px 40px' } }
                 >
-                    <AddMemberToTeam/>
-                    {members.length > 0 ? (
+                    { members.length > 0 ? (
                         <List
                             disablePadding
                         >
                             {
                                 members.map(({ id: memberId, firstName, lastName }) => (
-                                    <ListItem disablePadding key={`${id}-${memberId}`}>{firstName} {lastName}</ListItem>
+                                    <ListItem disablePadding
+                                              key={ `${ id }-${ memberId }` }>{ firstName } { lastName }</ListItem>
                                 ))
                             }
                         </List>
                     ) : (
                         <Box>Keine Mitglieder</Box>
-                    )}
+                    ) }
+                    <AddMemberToTeam/>
                 </Box>
             </Collapse>
             <Divider/>
