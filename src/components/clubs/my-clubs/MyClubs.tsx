@@ -3,6 +3,7 @@ import { List, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux.ts';
 import { selectClubs } from '../../../redux-modules/clubs/selectors.ts';
 import { setSelectedClubId } from '../../../redux-modules/clubs/slice.ts';
+import { setRoute } from '../../../redux-modules/app/slice.ts';
 
 const MyClubs: FC = () => {
     const clubs = useAppSelector(selectClubs);
@@ -11,6 +12,7 @@ const MyClubs: FC = () => {
 
     const handleSelectClub = (clubId: number) => {
         dispatch(setSelectedClubId(clubId));
+        dispatch(setRoute('/management'));
     };
 
     return (

@@ -4,8 +4,12 @@ const styles: StylesTheme = {
     intro: {
         p: 2
     },
-    table: {
-        mt: '12px'
+    tableWrapper: {
+        width: '100%',
+        overflow: 'hidden'
+    },
+    tableContainer: {
+        maxHeight: '700px'
     }
 };
 

@@ -60,9 +60,9 @@ export const saveMemberDelete = (memberId: number) => async (dispatch: AppDispat
         return;
     }
 
-    const members = selectMembers(state).filter(({ isAdmin }) => isAdmin);
+    const members = selectMembers(state);
 
-    if (members.length === 1) {
+    if (members.length === 1 && members[0].isAdmin) {
         // no members, so club is deleted
         dispatch(resetSelectedClub());
         dispatch(removeClub(clubId));

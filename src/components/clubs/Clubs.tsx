@@ -5,10 +5,9 @@ import { Box, IconButton, Tab, Tabs, Typography } from '@mui/material';
 import CameraIcon from '@mui/icons-material/Camera';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { StylesTheme } from '../../types/mui.ts';
-import { setAccessToken } from '../../redux-modules/app/slice.ts';
 import MyClubs from './my-clubs/MyClubs.tsx';
 import AddClub from './add-club/AddClub.tsx';
-import { setSelectedClubId } from '../../redux-modules/clubs/slice.ts';
+import { handleLogout } from '../../redux-modules/app/actions.ts';
 
 interface TabPanelProps {
     children?: ReactNode;
@@ -16,7 +15,7 @@ interface TabPanelProps {
     value: number;
 }
 
-function CustomTabPanel(props: TabPanelProps) {
+function CustomTabPanel (props: TabPanelProps) {
     const { children, value, index } = props;
 
     return (
@@ -35,7 +34,7 @@ function CustomTabPanel(props: TabPanelProps) {
     );
 }
 
-function a11yProps(index: number) {
+function a11yProps (index: number) {
     return {
         id: `simple-tab-${ index }`,
         'aria-controls': `simple-tabpanel-${ index }`
@@ -62,12 +61,8 @@ const Clubs: FC = () => {
     };
 
 
-    const handleLogout = () => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('selectedClubId');
-
-        dispatch(setAccessToken(null));
-        dispatch(setSelectedClubId(null));
+    const handleLogoutClick = () => {
+        dispatch(handleLogout());
     };
 
     return (
@@ -76,7 +71,7 @@ const Clubs: FC = () => {
                 sx={ {
                     position: 'absolute'
                 } }
-                onClick={ handleLogout }
+                onClick={ handleLogoutClick }
             >
                 <ArrowBackIcon/>
             </IconButton>

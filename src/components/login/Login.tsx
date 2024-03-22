@@ -5,6 +5,7 @@ import CameraIcon from '@mui/icons-material/Camera';
 import { StylesTheme } from '../../types/mui.ts';
 import { handleLogin } from '../../redux-modules/app/actions.ts';
 import PaperWrapper from '../shared/paper-wrapper/PaperWrapper.tsx';
+import { setRoute } from '../../redux-modules/app/slice.ts';
 
 const styles: StylesTheme = {
     root: {
@@ -59,9 +60,12 @@ const Login: FC = () => {
         setMessage(null);
     };
 
+    const handleRegisterClick = () => {
+        dispatch(setRoute('/register'));
+    }
+
     return (
         <PaperWrapper>
-
             <Box
                 sx={ styles.root }
             >
@@ -123,6 +127,7 @@ const Login: FC = () => {
                             sx={ {
                                 cursor: 'pointer'
                             } }
+                            onClick={ handleRegisterClick }
                         >
                             <Typography>
                                 Registrieren

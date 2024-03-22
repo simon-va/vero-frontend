@@ -14,7 +14,7 @@ const slice = createSlice({
     initialState,
     reducers: {
         setMembers(state, action: PayloadAction<Member[]>) {
-            state.members = action.payload;
+            state.members = action.payload.sort((a, b) => a.firstName > b.firstName ? 1 : -1);
         },
         updateMember(state, action: PayloadAction<Partial<Member>>) {
             const member = state.members.find((member) => member.id === action.payload.id);

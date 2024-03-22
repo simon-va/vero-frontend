@@ -10,6 +10,7 @@ import { setModuleSelected } from '../modules/slice.ts';
 import { postClub } from '../../api/club/post.ts';
 import { deleteClub } from '../../api/club/delete.ts';
 import { resetSelectedClub } from '../app/actions.ts';
+import { setRoute } from '../app/slice.ts';
 
 export const loadClubs = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const accessToken = selectAccessToken(getState());
@@ -35,8 +36,8 @@ export const saveClubAdd = (clubName: string) => async (dispatch: AppDispatch, g
     }
 
     dispatch(setSelectedClubId(data.club.id));
-
     dispatch(addClub(data.club));
+    dispatch(setRoute('/management'));
 };
 
 interface AddModuleToClubProps {
@@ -94,6 +95,7 @@ export const saveClubRemove = () => async (dispatch: AppDispatch, getState: GetA
         return;
     }
 
+    dispatch(setRoute('/login'));
     dispatch(resetSelectedClub());
     dispatch(removeClub(clubId));
 };

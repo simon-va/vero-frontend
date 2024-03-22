@@ -22,3 +22,28 @@ export const postLogin = async ({ password, email }: PostLoginProps): Promise<Ap
 
     return { status: response.status, data: response.data };
 };
+
+interface User {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+}
+
+interface PostRegisterProps {
+    payload: User;
+}
+
+interface PostRegisterData extends User {
+    token: string;
+}
+
+export const postRegister = async ({ payload }: PostRegisterProps): Promise<ApiFunctionResult<PostRegisterData>> => {
+    const response = await request<PostRegisterData, User>({
+        method: 'POST',
+        route: '/users/register',
+        body: payload
+    });
+
+    return { status: response.status, data: response.data };
+};

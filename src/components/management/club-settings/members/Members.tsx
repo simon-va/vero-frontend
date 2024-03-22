@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import {
+    Box,
     Divider,
     Table,
     TableBody,
-    TableCell,
+    TableCell, TableContainer,
     TableHead,
     TableRow,
     Typography
@@ -22,11 +23,11 @@ const titles = [
     },
     {
         name: 'Vorname',
-        width: '80px'
+        width: 'auto'
     },
     {
         name: 'Nachname',
-        width: '120px'
+        width: 'auto'
     },
     {
         name: 'Email Adresse',
@@ -42,11 +43,11 @@ const titles = [
     },
     {
         name: 'Stadt',
-        width: 'auto'
+        width: '80px'
     },
     {
         name: 'PLZ',
-        width: 'auto'
+        width: '80px'
     }
 ];
 
@@ -61,31 +62,34 @@ const Members: FC = () => {
             </Typography>
             <Divider/>
             <AddMember/>
-            <Table
-                stickyHeader
-                sx={styles.table}
-            >
-                <TableHead>
-                    <TableRow>
-                        {titles.map((title) => (
-                            <TableCell
-                                key={title?.key ?? title.name}
-                                sx={{
-                                    width: title.width,
-                                    padding: '10px 6px'
-                                }}
-                            >
-                                {title.name}
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {members.map((member) => (
-                        <SingleMember key={member.id} member={member}/>
-                    ))}
-                </TableBody>
-            </Table>
+            <Box sx={styles.tableWrapper}>
+                <TableContainer sx={styles.tableContainer}>
+                    <Table
+                        stickyHeader
+                    >
+                        <TableHead>
+                            <TableRow>
+                                {titles.map((title) => (
+                                    <TableCell
+                                        key={title?.key ?? title.name}
+                                        sx={{
+                                            width: title.width,
+                                            padding: '10px 6px'
+                                        }}
+                                    >
+                                        {title.name}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {members.map((member) => (
+                                <SingleMember key={member.id} member={member}/>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
         </>
     );
 };
