@@ -23,7 +23,7 @@ const slice = createSlice({
                 Object.assign(member, action.payload);
             }
         },
-        deleteMember(state, action: PayloadAction<number>) {
+        removeMember(state, action: PayloadAction<number>) {
             state.members = state.members.filter((member) => member.id !== action.payload);
         },
         addMember(state, action: PayloadAction<Member>) {
@@ -32,5 +32,5 @@ const slice = createSlice({
     }
 });
 
-export const { setMembers, updateMember, deleteMember, addMember } = slice.actions;
+export const { setMembers, updateMember, removeMember, addMember } = slice.actions;
 export const membersReducer = slice.reducer;

@@ -2,11 +2,13 @@ import { AppDispatch, GetAppState } from '../index.ts';
 import { selectAccessToken } from '../app/selectors.ts';
 import { getMembers } from '../../api/members/get.ts';
 import { selectSelectedClubId } from '../clubs/selectors.ts';
-import { addMember, deleteMember, setMembers, updateMember } from './slice.ts';
+import { addMember, removeMember, setMembers, updateMember } from './slice.ts';
 import { patchMember } from '../../api/members/patch.ts';
 import { deleteMember } from '../../api/members/delete.ts';
 import { postMember } from '../../api/members/post.ts';
 import { Member } from '../../types/members.ts';
+import { selectMembers } from './selectors.ts';
+import { setSelectedClubId } from '../clubs/slice.ts';
 
 export const loadMembers = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const state = getState();
@@ -57,7 +59,15 @@ export const saveMemberDelete = (memberId: number) => async (dispatch: AppDispat
         return;
     }
 
-    dispatch(deleteMember(memberId));
+    const members = selectMembers(state).filter(({ isAdmin }) => isAdmin);
+
+    if (members.length === 1) {
+        // no members, so club is deleted
+        localStorage.removeItem('selectedClubId');
+        dispatch(setSelectedClubId(null));
+    }
+
+    dispatch(removeMember(memberId));
 };
 
 export const saveMemberAdd = (payload: Pick<Member, 'firstName' | 'lastName'>) => async (dispatch: AppDispatch, getState: GetAppState) => {

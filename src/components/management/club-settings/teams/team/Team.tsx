@@ -5,6 +5,7 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux.ts';
 import { saveTeamDelete } from '../../../../../redux-modules/teams/actions.ts';
+import AddMemberToTeam from './add-member-to-team/AddMemberToTeam.tsx';
 import { RootState } from '../../../../../redux-modules';
 import { selectMemberByTeamId } from '../../../../../redux-modules/members/selectors.ts';
 
@@ -15,7 +16,7 @@ interface TeamProps {
 }
 
 const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
-    const { id, name, memberIds } = team;
+    const { id, name, isSystemTeam } = team;
     const members = useAppSelector((state: RootState) => selectMemberByTeamId(state, id));
 
     const dispatch = useAppDispatch();
@@ -45,21 +46,26 @@ const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
                 >
                     {name}
                 </Typography>
-                <IconButton
-                    sx={{
-                        marginRight: '8px'
-                    }}
-                    onClick={handleDelete}
-                >
-                    <DeleteOutlineOutlinedIcon
-                        color="error"
-                    />
-                </IconButton>
+                {
+                    !isSystemTeam && (
+                        <IconButton
+                            onClick={ handleDelete }
+                            sx={ {
+                                marginRight: '8px'
+                            } }
+                        >
+                            <DeleteOutlineOutlinedIcon
+                                color="error"
+                            />
+                        </IconButton>
+                    )
+                }
             </Box>
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                 <Box
                     sx={{ margin: '0 0 12px 40px' }}
                 >
+                    <AddMemberToTeam/>
                     {members.length > 0 ? (
                         <List
                             disablePadding
