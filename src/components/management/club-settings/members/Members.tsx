@@ -56,36 +56,36 @@ const Members: FC = () => {
 
     return (
         <>
-            <Typography variant="body1" sx={styles.intro}>
+            <Typography variant="body1" sx={ styles.intro }>
                 Mitglieder machen den Verein zu dem, was er ist. Hier kannst du Mitglieder hinzufügen, bearbeiten und
                 löschen.
             </Typography>
             <Divider/>
             <AddMember/>
-            <Box sx={styles.tableWrapper}>
-                <TableContainer sx={styles.tableContainer}>
+            <Box sx={ styles.tableWrapper }>
+                <TableContainer sx={ styles.tableContainer }>
                     <Table
                         stickyHeader
                     >
                         <TableHead>
                             <TableRow>
-                                {titles.map((title) => (
+                                { titles.map((title) => (
                                     <TableCell
-                                        key={title?.key ?? title.name}
-                                        sx={{
+                                        key={ title?.key ?? title.name }
+                                        sx={ {
                                             width: title.width,
                                             padding: '10px 6px'
-                                        }}
+                                        } }
                                     >
-                                        {title.name}
+                                        { title.name }
                                     </TableCell>
-                                ))}
+                                )) }
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {members.map((member) => (
-                                <SingleMember key={member.id} member={member}/>
-                            ))}
+                            { members.map((member) => (
+                                <SingleMember key={ member.id } member={ member }/>
+                            )) }
                         </TableBody>
                     </Table>
                 </TableContainer>

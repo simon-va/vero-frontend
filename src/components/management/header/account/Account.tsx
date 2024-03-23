@@ -74,7 +74,6 @@ const Account: FC = () => {
                 open={open}
                 onClose={handleClose}
                 onClick={handleClose}
-
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >

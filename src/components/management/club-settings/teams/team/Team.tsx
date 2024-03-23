@@ -1,13 +1,19 @@
 import { Team as ITeam } from '../../../../../types/teams.ts';
 import { FC } from 'react';
-import { Box, Collapse, Divider, IconButton, List, ListItem, Typography } from '@mui/material';
+import {
+    Box,
+    Collapse,
+    Divider,
+    IconButton,
+    List,
+    ListItem,
+    Typography
+} from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux.ts';
-import { saveTeamDelete } from '../../../../../redux-modules/teams/actions.ts';
-import AddMemberToTeam from './add-member-to-team/AddMemberToTeam.tsx';
+import { useAppSelector } from '../../../../../hooks/redux.ts';
 import { RootState } from '../../../../../redux-modules';
 import { selectMemberByTeamId } from '../../../../../redux-modules/members/selectors.ts';
+import ContextMenu from './context-menu/ContextMenu.tsx';
 
 interface TeamProps {
     team: ITeam;
@@ -18,12 +24,6 @@ interface TeamProps {
 const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
     const { id, name, isSystemTeam } = team;
     const members = useAppSelector((state: RootState) => selectMemberByTeamId(state, id));
-
-    const dispatch = useAppDispatch();
-
-    const handleDelete = () => {
-        void dispatch(saveTeamDelete({ teamId: id }));
-    };
 
     return (
         <>
@@ -47,18 +47,11 @@ const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
                     { name }
                 </Typography>
                 {
-                    !isSystemTeam && (
-                        <IconButton
-                            onClick={ handleDelete }
-                            sx={ {
-                                marginRight: '8px'
-                            } }
-                        >
-                            <DeleteOutlineOutlinedIcon
-                                color="error"
-                            />
-                        </IconButton>
-                    )
+                    <ContextMenu
+                        teamId={ id }
+                        name={ name }
+                        isSystemTeam={ isSystemTeam }
+                    />
                 }
             </Box>
             <Collapse in={ isExpanded } timeout="auto" unmountOnExit>
@@ -79,7 +72,6 @@ const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
                     ) : (
                         <Box>Keine Mitglieder</Box>
                     ) }
-                    <AddMemberToTeam/>
                 </Box>
             </Collapse>
             <Divider/>
