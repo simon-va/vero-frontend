@@ -18,6 +18,7 @@ const SingleMember: FC<SingleMemberProps> = ({ member }) => {
             >
                 <ContextMenu
                     memberId={ member.id }
+                    userId={ member.userId }
                 />
             </TableCell>
             <StringField
