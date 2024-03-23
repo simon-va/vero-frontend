@@ -23,3 +23,26 @@ export const postTeam = async (
 
     return { status: response.status, data: response.data };
 };
+
+interface PostMemberToTeamProps {
+    accessToken: string | null;
+    clubId: number;
+    teamId: number;
+    memberId: number;
+}
+
+export const postMemberToTeam = async (
+    {
+        accessToken,
+        clubId,
+        teamId,
+        memberId
+    }: PostMemberToTeamProps): Promise<ApiFunctionResult> => {
+    const response = await request({
+        route: `/clubs/${ clubId }/teams/${ teamId }/members/${ memberId }`,
+        method: 'POST',
+        accessToken
+    });
+
+    return { status: response.status };
+};

@@ -6,14 +6,16 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import ConfirmDialog from '../../../../../shared/confirm-dialog/ConfirmDialog.tsx';
 import { saveTeamDelete } from '../../../../../../redux-modules/teams/actions.ts';
 import { useAppDispatch } from '../../../../../../hooks/redux.ts';
+import EditMembers from './edit-members/EditMembers.tsx';
 
 interface ContextMenuProps {
     teamId: number;
     name: string;
     isSystemTeam: boolean;
+    memberIds: number[];
 }
 
-const ContextMenu: FC<ContextMenuProps> = ({ teamId, name, isSystemTeam }) => {
+const ContextMenu: FC<ContextMenuProps> = ({ teamId, name, isSystemTeam, memberIds }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [openDialog, setOpenDialog] = useState<number | null>(null);
 
@@ -72,6 +74,12 @@ const ContextMenu: FC<ContextMenuProps> = ({ teamId, name, isSystemTeam }) => {
                     </MenuItem>
                 ) }
             </Menu>
+            <EditMembers
+                isOpen={ openDialog === 1 }
+                onClose={ handleCloseDialog }
+                teamId={ teamId }
+                memberIds={ memberIds }
+            />
             <ConfirmDialog
                 isOpen={ openDialog === 2 }
                 onClose={ handleCloseDialog }

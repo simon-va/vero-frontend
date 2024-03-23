@@ -22,7 +22,7 @@ interface TeamProps {
 }
 
 const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
-    const { id, name, isSystemTeam } = team;
+    const { id, name, isSystemTeam, memberIds } = team;
     const members = useAppSelector((state: RootState) => selectMemberByTeamId(state, id));
 
     return (
@@ -51,6 +51,7 @@ const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
                         teamId={ id }
                         name={ name }
                         isSystemTeam={ isSystemTeam }
+                        memberIds={ memberIds }
                     />
                 }
             </Box>

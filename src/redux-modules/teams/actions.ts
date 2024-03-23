@@ -2,9 +2,9 @@ import { AppDispatch, GetAppState } from '../index.ts';
 import { selectAccessToken } from '../app/selectors.ts';
 import { selectSelectedClubId } from '../clubs/selectors.ts';
 import { getTeams } from '../../api/teams/get.ts';
-import { addTeam, removeTeam, setTeams } from './slice.ts';
-import { postTeam } from '../../api/teams/post.ts';
-import { deleteTeam } from '../../api/teams/delete.ts';
+import { addTeam, removeTeam, setMemberIds, setTeams } from './slice.ts';
+import { postMemberToTeam, postTeam } from '../../api/teams/post.ts';
+import { deleteMemberFromTeam, deleteTeam } from '../../api/teams/delete.ts';
 
 export const loadTeams = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const state = getState();
@@ -57,4 +57,43 @@ export const saveTeamDelete = ({ teamId }: SaveTeamDeleteProps) => async (dispat
     }
 
     dispatch(removeTeam(teamId));
+};
+
+interface SaveMemberSelectionUpdateProps {
+    teamId: number;
+    prevMemberIds: number[];
+    memberIds: number[];
+}
+
+export const saveMemberSelectionUpdate = (
+    {
+        memberIds,
+        prevMemberIds,
+        teamId
+    }: SaveMemberSelectionUpdateProps) => async (dispatch: AppDispatch, getState: GetAppState) => {
+    const memberIdsToDelete = prevMemberIds.filter((id) => !memberIds.includes(id));
+    const memberIdsToAdd = memberIds.filter((id) => !prevMemberIds.includes(id));
+
+    const addPromises = memberIdsToAdd.map((memberId) => {
+        return postMemberToTeam({
+            accessToken: selectAccessToken(getState()),
+            clubId: selectSelectedClubId(getState())!,
+            teamId,
+            memberId
+        });
+    });
+
+    const deletePromises = memberIdsToDelete.map((memberId) => {
+        return deleteMemberFromTeam({
+            accessToken: selectAccessToken(getState()),
+            clubId: selectSelectedClubId(getState())!,
+            teamId,
+            memberId
+        });
+    });
+
+    await Promise.all(addPromises);
+    await Promise.all(deletePromises);
+
+    dispatch(setMemberIds({ teamId, memberIds }));
 };
