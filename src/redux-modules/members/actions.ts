@@ -10,6 +10,7 @@ import { Member } from '../../types/members.ts';
 import { selectMembers } from './selectors.ts';
 import { removeClub } from '../clubs/slice.ts';
 import { resetSelectedClub } from '../app/actions.ts';
+import { NotificationType, showNotification } from '../notification/slice.ts';
 
 export const loadMembers = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const state = getState();
@@ -18,6 +19,11 @@ export const loadMembers = () => async (dispatch: AppDispatch, getState: GetAppS
     const { status, data } = await getMembers({ accessToken, clubId });
 
     if (status !== 200 || !data) {
+        dispatch(showNotification({
+            message: 'Beim Laden der Mitglieder ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 
@@ -40,6 +46,11 @@ export const saveMemberUpdate = ({ memberId, payload }: SaveMemberUpdateProps) =
     const { status } = await patchMember({ accessToken, clubId, memberId, payload });
 
     if (status !== 204) {
+        dispatch(showNotification({
+            message: '\'Beim Speichern der Änderungen ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 
@@ -57,6 +68,11 @@ export const saveRemoveUserFromMember = (memberId: number) => async (dispatch: A
     const { status } = await deleteUserFromMember({ accessToken, clubId, memberId });
 
     if (status !== 204) {
+        dispatch(showNotification({
+            message: 'Beim Entfernen des Benutzers ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 
@@ -83,6 +99,11 @@ export const saveAssignUserToMember = (
     const { status, data } = await postAssignUserToMember({ accessToken, clubId, memberId, email });
 
     if (status !== 200 || !data) {
+        dispatch(showNotification({
+            message: 'Vergewissere dich, dass du eine gültige Email-Adresse eingegeben hast.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 
@@ -99,6 +120,12 @@ export const saveMemberDelete = (memberId: number) => async (dispatch: AppDispat
     const { status } = await deleteMember({ accessToken, clubId, memberId });
 
     if (status !== 204) {
+        dispatch(showNotification({
+            message: 'Beim Löschen des Mitglieds ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
+
         return;
     }
 
@@ -121,6 +148,11 @@ export const saveMemberAdd = (payload: Pick<Member, 'firstName' | 'lastName'>) =
     const { status, data } = await postMember({ accessToken, clubId, payload });
 
     if (status !== 201 || !data) {
+        dispatch(showNotification({
+            message: 'Beim Erstellen des Mitglieds ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 

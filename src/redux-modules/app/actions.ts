@@ -2,6 +2,7 @@ import { AppDispatch } from '../index.ts';
 import { postLogin, postRegister } from '../../api/user/post.ts';
 import { setAccessToken, setRoute, setSelectedContent } from './slice.ts';
 import { setSelectedClubId } from '../clubs/slice.ts';
+import { NotificationType, showNotification } from '../notification/slice.ts';
 
 interface HandleLoginProps {
     email: string;
@@ -14,16 +15,19 @@ export const handleLogin = ({ password, email }: HandleLoginProps) => async (dis
         password
     });
 
-    if (!status || !data) {
-        return { message: 'Email oder Passwort ist falsch ' };
+    if (status !== 200 || !data) {
+        dispatch(showNotification({
+            message: 'Email oder Passwort falsch',
+            type: NotificationType.Error
+        }));
+
+        return;
     }
 
     localStorage.setItem('accessToken', data.token);
 
     dispatch(setRoute('/clubs'));
     dispatch(setAccessToken(data.token));
-
-    return { message: null };
 };
 
 interface HandleUserRegisterProps {
@@ -39,16 +43,25 @@ export const handleUserRegister = (payload: HandleUserRegisterProps) => {
 
         if (status !== 201 || !data) {
             if (status === 409) {
-                return { message: 'Email bereits registriert' };
+                dispatch(showNotification({
+                    message: 'Ein Konto mit dieser Email existiert bereits',
+                    type: NotificationType.Error
+                }));
+
+                return;
             }
 
-            return { message: 'Fehler bei der Registrierung' };
+            dispatch(showNotification({
+                message: `Bei der Registrierung ist ein Fehler aufgetreten ${status}`,
+                type: NotificationType.Error
+            }));
+
+            return;
         }
 
         localStorage.setItem('accessToken', data.token);
         dispatch(setAccessToken(data.token));
         dispatch(setRoute('/clubs'));
-        return { message: null };
     };
 };
 

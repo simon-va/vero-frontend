@@ -5,6 +5,7 @@ import { getTeams } from '../../api/teams/get.ts';
 import { addTeam, removeTeam, setMemberIds, setTeams } from './slice.ts';
 import { postMemberToTeam, postTeam } from '../../api/teams/post.ts';
 import { deleteMemberFromTeam, deleteTeam } from '../../api/teams/delete.ts';
+import { NotificationType, showNotification } from '../notification/slice.ts';
 
 export const loadTeams = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const state = getState();
@@ -14,6 +15,11 @@ export const loadTeams = () => async (dispatch: AppDispatch, getState: GetAppSta
     const { status, data } = await getTeams({ accessToken, clubId });
 
     if (status !== 200 || !data) {
+        dispatch(showNotification({
+            message: 'Beim Laden der Teams ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 
@@ -32,6 +38,11 @@ export const saveTeamAdd = ({ name }: SaveTeamAddProps) => async (dispatch: AppD
     const { status, data } = await postTeam({ accessToken, clubId, payload: { name } });
 
     if (status !== 201 || !data) {
+        dispatch(showNotification({
+            message: 'Beim Erstellen des Teams ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 
@@ -53,6 +64,11 @@ export const saveTeamDelete = ({ teamId }: SaveTeamDeleteProps) => async (dispat
     const { status } = await deleteTeam({ accessToken, clubId, teamId });
 
     if (status !== 204) {
+        dispatch(showNotification({
+            message: 'Beim Löschen des Teams ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 

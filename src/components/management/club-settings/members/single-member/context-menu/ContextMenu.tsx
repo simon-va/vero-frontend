@@ -14,10 +14,10 @@ import AssignUser from './assign-user/AssignUser.tsx';
 
 interface ContextMenuProps {
     memberId: number;
-    userId: number | null;
+    userId: number | undefined;
 }
 
-const ContextMenu: FC<ContextMenuProps> = ({ memberId , userId}) => {
+const ContextMenu: FC<ContextMenuProps> = ({ memberId, userId }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [openDialogId, setOpenDialogId] = useState<number | null>(null);
 
@@ -75,7 +75,7 @@ const ContextMenu: FC<ContextMenuProps> = ({ memberId , userId}) => {
                         Benutzer zuweisen
                     </Typography>
                 </MenuItem>
-                {userId && (
+                { userId && (
                     <MenuItem onClick={ () => handleOpenDialog(2) }>
                         <ListItemIcon>
                             <PersonRemoveAlt1OutlinedIcon fontSize="small"/>
@@ -84,7 +84,7 @@ const ContextMenu: FC<ContextMenuProps> = ({ memberId , userId}) => {
                             Benutzer entfernen
                         </Typography>
                     </MenuItem>
-                )}
+                ) }
                 <MenuItem onClick={ () => handleOpenDialog(3) }>
                     <ListItemIcon>
                         <DeleteOutlineOutlinedIcon fontSize="small" color="error"/>

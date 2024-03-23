@@ -32,7 +32,6 @@ const Login: FC = () => {
     const [localEmail, setLocalEmail] = useState('');
     const [localPassword, setLocalPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [message, setMessage] = useState<string | null>(null);
 
     const dispatch = useAppDispatch();
 
@@ -41,28 +40,19 @@ const Login: FC = () => {
     const handleSubmit = async () => {
         setIsLoading(true);
 
-        const { message } = await dispatch(handleLogin({
+        await dispatch(handleLogin({
             email: localEmail,
             password: localPassword
         }));
 
         setIsLoading(false);
-
-        if (message) {
-            setMessage(message);
-            setLocalPassword('');
-
-            return;
-        }
-
         setLocalPassword('');
         setLocalEmail('');
-        setMessage(null);
     };
 
     const handleRegisterClick = () => {
         dispatch(setRoute('/register'));
-    }
+    };
 
     return (
         <PaperWrapper>
@@ -109,23 +99,11 @@ const Login: FC = () => {
                             }
                         } }
                     />
-                    <Box
-                        sx={ {
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between'
-                        } }
-                    >
-                        <Box id="login-unseccessful">
-                            { message && (
-                                <Typography component="footer" sx={ { color: 'red' } }>
-                                    { message }
-                                </Typography>
-                            ) }
-                        </Box>
+                    <Box>
                         <Link
                             sx={ {
-                                cursor: 'pointer'
+                                cursor: 'pointer',
+                                float: 'right'
                             } }
                             onClick={ handleRegisterClick }
                         >

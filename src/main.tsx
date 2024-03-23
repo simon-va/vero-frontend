@@ -9,10 +9,12 @@ import { store } from './redux-modules';
 import App from './components/App.tsx';
 import { theme } from './utils/theme.ts';
 import { ThemeProvider } from '@mui/material';
+import NotificationBar from './components/notification-bar/NotificationBar.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <Provider store={ store }>
         <ThemeProvider theme={ theme }>
+            <NotificationBar/>
             <App/>
         </ThemeProvider>
     </Provider>

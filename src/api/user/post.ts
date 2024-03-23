@@ -42,7 +42,10 @@ export const postRegister = async ({ payload }: PostRegisterProps): Promise<ApiF
     const response = await request<PostRegisterData, User>({
         method: 'POST',
         route: '/users/register',
-        body: payload
+        body: {
+            ...payload,
+            email: payload.email.toLowerCase().trim()
+        }
     });
 
     return { status: response.status, data: response.data };

@@ -11,6 +11,7 @@ import { postClub } from '../../api/club/post.ts';
 import { deleteClub } from '../../api/club/delete.ts';
 import { resetSelectedClub } from '../app/actions.ts';
 import { setRoute } from '../app/slice.ts';
+import { NotificationType, showNotification } from '../notification/slice.ts';
 
 export const loadClubs = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const accessToken = selectAccessToken(getState());
@@ -18,6 +19,10 @@ export const loadClubs = () => async (dispatch: AppDispatch, getState: GetAppSta
     const { status, data } = await getClubs({ accessToken });
 
     if (status !== 200 || !data) {
+        dispatch(showNotification({
+            message: 'Beim Laden deiner Vereine ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
         dispatch(resetSelectedClub());
 
         return;
@@ -44,6 +49,11 @@ export const saveClubAdd = (clubName: string) => async (dispatch: AppDispatch, g
     });
 
     if (status !== 201 || !data) {
+        dispatch(showNotification({
+            message: 'Beim Erstellen des Vereins ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 
@@ -66,6 +76,11 @@ export const saveModuleToClubAdd = ({ moduleId }: AddModuleToClubProps) => async
     });
 
     if (status !== 201) {
+        dispatch(showNotification({
+            message: 'Beim Speichern deiner Einstellung ist ein Fehler aufgetreten',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 
@@ -85,6 +100,10 @@ export const saveModuleFromClubDelete = ({ moduleId }: AddModuleToClubProps) => 
     });
 
     if (status !== 204) {
+        dispatch(showNotification({
+            message: 'Beim Löschen deiner Einstellung ist ein Fehler aufgetreten',
+            type: NotificationType.Error
+        }));
         return;
     }
 
@@ -104,6 +123,11 @@ export const saveClubRemove = () => async (dispatch: AppDispatch, getState: GetA
     });
 
     if (status !== 204) {
+        dispatch(showNotification({
+            message: 'Beim Löschen des Vereins ist ein Fehler aufgetreten.',
+            type: NotificationType.Error
+        }));
+
         return;
     }
 

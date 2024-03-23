@@ -36,8 +36,6 @@ const Register: FC = () => {
         email: '',
         password: ''
     });
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
     const dispatch = useAppDispatch();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -54,15 +52,13 @@ const Register: FC = () => {
     };
 
     const handleSubmit = async () => {
-        const { message } = await dispatch(handleUserRegister(registerData));
-
-        setErrorMessage(message);
+        void dispatch(handleUserRegister(registerData));
     };
 
     const isRegisterDisabled = registerData.firstName.trim().length === 0
         || registerData.lastName.trim().length === 0
         || registerData.email.trim().length === 0
-        || registerData.password.trim().length <= 6;
+        || registerData.password.trim().length <= 5;
 
     return (
         <PaperWrapper>
@@ -129,13 +125,6 @@ const Register: FC = () => {
                             />
                         </Grid>
                     </Grid>
-                    <Box id="login-unseccessful">
-                        { errorMessage && (
-                            <Typography component="footer" sx={ { color: 'red' } }>
-                                { errorMessage }
-                            </Typography>
-                        ) }
-                    </Box>
                     <Button
                         onClick={ handleSubmit }
                         disabled={ isRegisterDisabled }
