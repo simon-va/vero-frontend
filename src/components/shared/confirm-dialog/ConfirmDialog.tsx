@@ -15,10 +15,14 @@ const ConfirmDialog: FC<ConfirmDialogProps> = ({ isOpen, onClose, onConfirm, tit
             open={ isOpen }
             onClose={ onClose }
         >
-            <DialogTitle>{ title }</DialogTitle>
-            <DialogContent>
-                <DialogContentText>{ message }</DialogContentText>
-            </DialogContent>
+            { title && (
+                <DialogTitle>{ title }</DialogTitle>
+            ) }
+            { message && (
+                <DialogContent>
+                    <DialogContentText>{ message }</DialogContentText>
+                </DialogContent>
+            ) }
             <DialogActions>
                 <Button onClick={ onClose }>Abbrechen</Button>
                 <Button onClick={ onConfirm }>Bestätigen</Button>

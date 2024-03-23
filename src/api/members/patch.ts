@@ -5,7 +5,7 @@ interface PatchMemberProps {
     accessToken: string | null;
     clubId: number;
     memberId: number;
-    payload: Record<string, string>;
+    payload: Record<string, string | null | number>;
 }
 
 export const patchMember = async (

@@ -34,7 +34,7 @@ const AddMember: FC = () => {
         <>
             <Box
                 sx={ {
-                    mt: '12px',
+                    margin: '12px 0'
                 } }
             >
                 <Button

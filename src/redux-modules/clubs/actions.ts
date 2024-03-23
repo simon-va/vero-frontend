@@ -18,7 +18,19 @@ export const loadClubs = () => async (dispatch: AppDispatch, getState: GetAppSta
     const { status, data } = await getClubs({ accessToken });
 
     if (status !== 200 || !data) {
+        dispatch(resetSelectedClub());
+
         return;
+    }
+
+    const selectedClubId = localStorage.getItem('selectedClubId');
+
+    if (selectedClubId) {
+        const isInClub = data.some((club) => club.id === Number(selectedClubId));
+
+        if (!isInClub) {
+            dispatch(resetSelectedClub());
+        }
     }
 
     dispatch(setClubs(data));

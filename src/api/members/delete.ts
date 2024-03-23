@@ -21,3 +21,18 @@ export const deleteMember = async (
 
     return { status: response.status };
 };
+
+export const deleteUserFromMember = async (
+    {
+        accessToken,
+        clubId,
+        memberId
+    }: DeleteMemberProps): Promise<ApiFunctionResult> => {
+    const response = await request({
+        route: `/clubs/${ clubId }/members/${ memberId }/user`,
+        method: 'DELETE',
+        accessToken
+    });
+
+    return { status: response.status };
+};

@@ -7,12 +7,12 @@ import { loadClubs } from '../redux-modules/clubs/actions.ts';
 import { loadMembers } from '../redux-modules/members/actions.ts';
 import { loadTeams } from '../redux-modules/teams/actions.ts';
 import { selectIsLoggedIn, selectRoute } from '../redux-modules/app/selectors.ts';
-import { setAccessToken, setRoute } from '../redux-modules/app/slice.ts';
-import { setSelectedClubId } from '../redux-modules/clubs/slice.ts';
 import { CssBaseline } from '@mui/material';
 import Login from './login/Login.tsx';
 import Clubs from './clubs/Clubs.tsx';
 import Register from './register/Register.tsx';
+import { setAccessToken, setRoute } from '../redux-modules/app/slice.ts';
+import { setSelectedClubId } from '../redux-modules/clubs/slice.ts';
 
 
 const App: FC = () => {

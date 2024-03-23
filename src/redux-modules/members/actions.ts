@@ -4,8 +4,8 @@ import { getMembers } from '../../api/members/get.ts';
 import { selectSelectedClubId } from '../clubs/selectors.ts';
 import { addMember, removeMember, setMembers, updateMember } from './slice.ts';
 import { patchMember } from '../../api/members/patch.ts';
-import { deleteMember } from '../../api/members/delete.ts';
-import { postMember } from '../../api/members/post.ts';
+import { deleteMember, deleteUserFromMember } from '../../api/members/delete.ts';
+import { postAssignUserToMember, postMember } from '../../api/members/post.ts';
 import { Member } from '../../types/members.ts';
 import { selectMembers } from './selectors.ts';
 import { removeClub } from '../clubs/slice.ts';
@@ -26,7 +26,7 @@ export const loadMembers = () => async (dispatch: AppDispatch, getState: GetAppS
 
 interface SaveMemberUpdateProps {
     memberId: number;
-    payload: Record<string, string>;
+    payload: Record<string, string | null | number>;
 }
 
 export const saveMemberUpdate = ({ memberId, payload }: SaveMemberUpdateProps) => async (
@@ -49,6 +49,48 @@ export const saveMemberUpdate = ({ memberId, payload }: SaveMemberUpdateProps) =
     }));
 };
 
+export const saveRemoveUserFromMember = (memberId: number) => async (dispatch: AppDispatch, getState: GetAppState) => {
+    const state = getState();
+    const accessToken = selectAccessToken(state);
+    const clubId = selectSelectedClubId(state)!;
+
+    const { status } = await deleteUserFromMember({ accessToken, clubId, memberId });
+
+    if (status !== 204) {
+        return;
+    }
+
+    dispatch(updateMember({
+        id: memberId,
+        userId: undefined
+    }));
+};
+
+interface SaveAssignUserToMemberProps {
+    memberId: number;
+    email: string;
+}
+
+export const saveAssignUserToMember = (
+    {
+        memberId,
+        email
+    }: SaveAssignUserToMemberProps) => async (dispatch: AppDispatch, getState: GetAppState) => {
+    const state = getState();
+    const accessToken = selectAccessToken(state);
+    const clubId = selectSelectedClubId(state)!;
+
+    const { status, data } = await postAssignUserToMember({ accessToken, clubId, memberId, email });
+
+    if (status !== 200 || !data) {
+        return;
+    }
+
+    dispatch(updateMember({
+        id: memberId,
+        userId: data.userId
+    }));
+};
 export const saveMemberDelete = (memberId: number) => async (dispatch: AppDispatch, getState: GetAppState) => {
     const state = getState();
     const accessToken = selectAccessToken(state);

@@ -23,3 +23,31 @@ export const postMember = async (
 
     return { status: response.status, data: response.data };
 };
+
+interface PostAssignUserToMemberProps {
+    accessToken: string | null;
+    clubId: number;
+    memberId: number;
+    email: string;
+}
+
+interface RostAssignUserToMemberResponse {
+    userId: number;
+}
+
+export const postAssignUserToMember = async (
+    {
+        accessToken,
+        clubId,
+        memberId,
+        email
+    }: PostAssignUserToMemberProps): Promise<ApiFunctionResult<RostAssignUserToMemberResponse>> => {
+    const response = await request<RostAssignUserToMemberResponse, { email: string }>({
+        route: `/clubs/${ clubId }/members/${ memberId }/user`,
+        method: 'POST',
+        accessToken,
+        body: { email }
+    });
+
+    return { status: response.status, data: response.data };
+};

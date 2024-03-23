@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, MouseEvent } from 'react';
 import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -52,7 +52,6 @@ const ContextMenu: FC<ContextMenuProps> = ({ teamId, name, isSystemTeam, memberI
                 <MoreVertIcon/>
             </IconButton>
             <Menu
-                id="basic-menu"
                 anchorEl={ anchorEl }
                 open={ open }
                 onClose={ handleClose }
