@@ -14,7 +14,7 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    TextField
+    TextField, Typography
 } from '@mui/material';
 import { saveMemberSelectionUpdate } from '../../../../../../../redux-modules/groups/actions.ts';
 
@@ -75,8 +75,10 @@ const EditMembers: FC<EditMembersProps> = ({ isOpen, onClose, groupId, memberIds
             open={ isOpen }
             onClose={ handleCancel }
         >
-            <DialogTitle>Mitglieder auswählen</DialogTitle>
-            <DialogContent>
+            <DialogTitle>
+                <Typography>
+                    Mitglieder auswählen
+                </Typography>
                 <TextField
                     label="Suchen"
                     fullWidth
@@ -84,10 +86,13 @@ const EditMembers: FC<EditMembersProps> = ({ isOpen, onClose, groupId, memberIds
                     onChange={ handleSearchChange }
                     size="small"
                     sx={ {
-                        margin: '8px 0'
+                        margin: '8px 0 4px',
                     } }
                 />
-                <List disablePadding
+            </DialogTitle>
+            <DialogContent>
+                <List
+                    disablePadding
                       sx={ {
                           height: 300
                       } }
