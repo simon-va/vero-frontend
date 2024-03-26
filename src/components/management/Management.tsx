@@ -18,6 +18,8 @@ const Management: FC = () => {
                 return <Home/>;
             case -2:
                 return <ClubSettings/>;
+            case 5:
+                return <div>Mitgliedschaft</div>;
             default:
                 return <div>Page not found</div>;
         }

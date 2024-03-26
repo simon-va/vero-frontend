@@ -39,7 +39,7 @@ const Module: FC<ModuleProps> = ({ module, handleExpand, isExpanded }) => {
                     sx={styles.moduleText}
                 >
                     {name} {isComingSoon && (
-                    <Typography component="span" sx={styles.commingSon}>(Coming soon)</Typography>
+                    <Typography component="span" sx={styles.comingSoon}>(Coming soon)</Typography>
                 )}
                 </Typography>
                 <Checkbox
