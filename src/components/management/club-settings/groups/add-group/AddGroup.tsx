@@ -2,11 +2,11 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextFie
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { FC, useState } from 'react';
 import { useAppDispatch } from '../../../../../hooks/redux.ts';
-import { saveTeamAdd } from '../../../../../redux-modules/teams/actions.ts';
+import { saveGroupAdd } from '../../../../../redux-modules/groups/actions.ts';
 
-const AddTeam: FC = () => {
+const AddGroup: FC = () => {
     const [open, setOpen] = useState(false);
-    const [localTeamName, setLocalTeamName] = useState('');
+    const [localGroupName, setLocalGroupName] = useState('');
 
     const dispatch = useAppDispatch();
 
@@ -19,14 +19,14 @@ const AddTeam: FC = () => {
     };
 
     const handleSave = () => {
-        void dispatch(saveTeamAdd({ name: localTeamName }));
+        void dispatch(saveGroupAdd({ name: localGroupName }));
 
         setOpen(false);
 
-        setLocalTeamName('');
+        setLocalGroupName('');
     };
 
-    const isButtonDisabled = localTeamName.trim() === '';
+    const isButtonDisabled = localGroupName.trim() === '';
 
 
     return (
@@ -43,7 +43,12 @@ const AddTeam: FC = () => {
                     Gruppe hinzufügen
                 </Button>
             </Box>
-            <Dialog open={ open } onClose={ handleClose }>
+            <Dialog
+                open={ open }
+                onClose={ handleClose }
+                fullWidth
+                maxWidth="xs"
+            >
                 <DialogTitle>Neue Gruppe hinzufügen</DialogTitle>
                 <DialogContent>
                     <TextField
@@ -52,8 +57,8 @@ const AddTeam: FC = () => {
                         id="groupName"
                         label="Gruppenname"
                         fullWidth
-                        value={ localTeamName }
-                        onChange={ (e) => setLocalTeamName(e.target.value) }
+                        value={ localGroupName }
+                        onChange={ (e) => setLocalGroupName(e.target.value) }
                     />
                 </DialogContent>
                 <DialogActions>
@@ -72,4 +77,4 @@ const AddTeam: FC = () => {
     );
 };
 
-export default AddTeam;
+export default AddGroup;

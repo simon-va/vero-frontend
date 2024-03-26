@@ -4,7 +4,7 @@ import ClubSettingsMenu from './club-settings-menu/ClubSettingsMenu.tsx';
 import Modules from './modules/Modules.tsx';
 import GeneralSettings from './general-settings/GeneralSettings.tsx';
 import Members from './members/Members.tsx';
-import Teams from './teams/Teams.tsx';
+import Groups from './groups/Groups.tsx';
 
 interface TabPanelProps {
     children?: ReactNode;
@@ -53,7 +53,7 @@ const ClubSettings: FC = () => {
                 <Members/>
             </CustomTabPanel>
             <CustomTabPanel value={ selectedTab } index={ 3 }>
-                <Teams/>
+                <Groups/>
             </CustomTabPanel>
         </Box>
     );

@@ -1,20 +1,20 @@
 import { ApiFunctionResult } from '../../types/api.ts';
 import { request } from '../../utils/request.ts';
 
-interface DeleteTeamProps {
+interface DeleteGroupProps {
     accessToken: string | null;
     clubId: number;
-    teamId: number;
+    groupId: number;
 }
 
-export const deleteTeam = async (
+export const deleteGroup = async (
     {
         accessToken,
         clubId,
-        teamId
-    }: DeleteTeamProps): Promise<ApiFunctionResult> => {
+        groupId
+    }: DeleteGroupProps): Promise<ApiFunctionResult> => {
     const response = await request({
-        route: `/clubs/${ clubId }/teams/${ teamId }`,
+        route: `/clubs/${ clubId }/groups/${ groupId }`,
         method: 'DELETE',
         accessToken
     });
@@ -22,22 +22,22 @@ export const deleteTeam = async (
     return { status: response.status };
 };
 
-interface DeleteMemberFromTeamProps {
+interface DeleteMemberFromGroupProps {
     accessToken: string | null;
     clubId: number;
-    teamId: number;
+    groupId: number;
     memberId: number;
 }
 
-export const deleteMemberFromTeam = async (
+export const deleteMemberFromGroup = async (
     {
         accessToken,
         clubId,
-        teamId,
+        groupId,
         memberId
-    }: DeleteMemberFromTeamProps): Promise<ApiFunctionResult> => {
+    }: DeleteMemberFromGroupProps): Promise<ApiFunctionResult> => {
     const response = await request({
-        route: `/clubs/${ clubId }/teams/${ teamId }/members/${ memberId }`,
+        route: `/clubs/${ clubId }/groups/${ groupId }/members/${ memberId }`,
         method: 'DELETE',
         accessToken
     });

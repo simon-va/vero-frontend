@@ -1,4 +1,4 @@
-import { Team as ITeam } from '../../../../../types/teams.ts';
+import { Group as IGroup } from '../../../../../types/groups.ts';
 import { FC } from 'react';
 import {
     Box,
@@ -12,18 +12,18 @@ import {
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useAppSelector } from '../../../../../hooks/redux.ts';
 import { RootState } from '../../../../../redux-modules';
-import { selectMemberByTeamId } from '../../../../../redux-modules/members/selectors.ts';
+import { selectMemberByGroupId } from '../../../../../redux-modules/members/selectors.ts';
 import ContextMenu from './context-menu/ContextMenu.tsx';
 
-interface TeamProps {
-    team: ITeam;
+interface GroupProps {
+    group: IGroup;
     handleExpand: (id: number) => void;
     isExpanded: boolean;
 }
 
-const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
-    const { id, name, isSystemTeam, memberIds } = team;
-    const members = useAppSelector((state: RootState) => selectMemberByTeamId(state, id));
+const Group: FC<GroupProps> = ({ group, handleExpand, isExpanded }) => {
+    const { id, name, isSystemGroup, memberIds } = group;
+    const members = useAppSelector((state: RootState) => selectMemberByGroupId(state, id));
 
     return (
         <>
@@ -48,9 +48,9 @@ const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
                 </Typography>
                 {
                     <ContextMenu
-                        teamId={ id }
+                        groupId={ id }
                         name={ name }
-                        isSystemTeam={ isSystemTeam }
+                        isSystemGroup={ isSystemGroup }
                         memberIds={ memberIds }
                     />
                 }
@@ -80,4 +80,4 @@ const Team: FC<TeamProps> = ({ team, handleExpand, isExpanded }) => {
     );
 };
 
-export default Team;
+export default Group;

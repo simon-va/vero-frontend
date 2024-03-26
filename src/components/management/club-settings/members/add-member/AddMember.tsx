@@ -44,7 +44,12 @@ const AddMember: FC = () => {
                     Mitglied hinzufügen
                 </Button>
             </Box>
-            <Dialog open={ open } onClose={ handleClose }>
+            <Dialog
+                open={ open }
+                onClose={ handleClose }
+                fullWidth
+                maxWidth='xs'
+            >
                 <DialogTitle>Neues Mitglied hinzufügen</DialogTitle>
                 <DialogContent>
                     <TextField

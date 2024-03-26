@@ -1,21 +1,21 @@
 import { ApiFunctionResult } from '../../types/api.ts';
 import { request } from '../../utils/request.ts';
-import { Team } from '../../types/teams.ts';
+import { Group } from '../../types/groups.ts';
 
-interface PostTeamProps {
+interface PostGroupProps {
     accessToken: string | null;
     clubId: number;
-    payload: Pick<Team, 'name'>;
+    payload: Pick<Group, 'name'>;
 }
 
-export const postTeam = async (
+export const postGroup = async (
     {
         accessToken,
         clubId,
         payload
-    }: PostTeamProps): Promise<ApiFunctionResult<Team>> => {
-    const response = await request<Team, Pick<Team, 'name'>>({
-        route: `/clubs/${ clubId }/teams`,
+    }: PostGroupProps): Promise<ApiFunctionResult<Group>> => {
+    const response = await request<Group, Pick<Group, 'name'>>({
+        route: `/clubs/${ clubId }/groups`,
         method: 'POST',
         accessToken,
         body: payload
@@ -24,22 +24,22 @@ export const postTeam = async (
     return { status: response.status, data: response.data };
 };
 
-interface PostMemberToTeamProps {
+interface PostMemberToGroupProps {
     accessToken: string | null;
     clubId: number;
-    teamId: number;
+    groupId: number;
     memberId: number;
 }
 
-export const postMemberToTeam = async (
+export const postMemberToGroup = async (
     {
         accessToken,
         clubId,
-        teamId,
+        groupId,
         memberId
-    }: PostMemberToTeamProps): Promise<ApiFunctionResult> => {
+    }: PostMemberToGroupProps): Promise<ApiFunctionResult> => {
     const response = await request({
-        route: `/clubs/${ clubId }/teams/${ teamId }/members/${ memberId }`,
+        route: `/clubs/${ clubId }/groups/${ groupId }/members/${ memberId }`,
         method: 'POST',
         accessToken
     });

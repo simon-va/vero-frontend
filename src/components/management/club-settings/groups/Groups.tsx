@@ -1,15 +1,15 @@
 import { FC, useState } from 'react';
 import { Box, Divider, Table, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import { useAppSelector } from '../../../../hooks/redux.ts';
-import { selectTeams } from '../../../../redux-modules/teams/selectors.ts';
-import Team from './team/Team.tsx';
-import AddTeam from './add-team/AddTeam.tsx';
+import { selectGroups } from '../../../../redux-modules/groups/selectors.ts';
+import Group from './group/Group.tsx';
+import AddGroup from './add-group/AddGroup.tsx';
 
 
-const Teams: FC = () => {
+const Groups: FC = () => {
     const [expandedModuleId, setExpandedModuleId] = useState<number | null>(null);
 
-    const teams = useAppSelector(selectTeams);
+    const groups = useAppSelector(selectGroups);
 
     const handleExpand = (id: number) => {
         setExpandedModuleId((prev) => prev === id ? null : id);
@@ -22,7 +22,7 @@ const Teams: FC = () => {
                 Mannschaft sein.
             </Typography>
             <Divider/>
-            <AddTeam/>
+            <AddGroup/>
             <Box sx={ {
                 marginTop: '12px',
                 width: '600px'
@@ -42,12 +42,12 @@ const Teams: FC = () => {
                         </TableRow>
                     </TableHead>
                 </Table>
-                { teams.map((team) => (
-                    <Team
-                        key={ team.id }
-                        team={ team }
+                { groups.map((group) => (
+                    <Group
+                        key={ group.id }
+                        group={ group }
                         handleExpand={ handleExpand }
-                        isExpanded={ expandedModuleId === team.id }
+                        isExpanded={ expandedModuleId === group.id }
                     />
                 )) }
             </Box>
@@ -55,4 +55,4 @@ const Teams: FC = () => {
     );
 };
 
-export default Teams;
+export default Groups;

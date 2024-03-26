@@ -5,7 +5,7 @@ import { loadModules } from '../redux-modules/modules/actions.ts';
 import { selectSelectedClubId } from '../redux-modules/clubs/selectors.ts';
 import { loadClubs } from '../redux-modules/clubs/actions.ts';
 import { loadMembers } from '../redux-modules/members/actions.ts';
-import { loadTeams } from '../redux-modules/teams/actions.ts';
+import { loadGroups } from '../redux-modules/groups/actions.ts';
 import { selectIsLoggedIn, selectRoute } from '../redux-modules/app/selectors.ts';
 import { CssBaseline } from '@mui/material';
 import Login from './login/Login.tsx';
@@ -26,7 +26,7 @@ const App: FC = () => {
         if (selectedClubId) {
             void dispatch(loadModules());
             void dispatch(loadMembers());
-            void dispatch(loadTeams());
+            void dispatch(loadGroups());
         }
     }, [dispatch, selectedClubId]);
 

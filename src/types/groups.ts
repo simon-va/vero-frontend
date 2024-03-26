@@ -1,8 +1,8 @@
 import { Member } from './members.ts';
 
-export interface Team {
+export interface Group {
     id: number;
     name: string;
     memberIds: Member['id'][];
-    isSystemTeam: boolean;
+    isSystemGroup: boolean;
 }

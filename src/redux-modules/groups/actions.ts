@@ -1,82 +1,82 @@
 import { AppDispatch, GetAppState } from '../index.ts';
 import { selectAccessToken } from '../app/selectors.ts';
 import { selectSelectedClubId } from '../clubs/selectors.ts';
-import { getTeams } from '../../api/teams/get.ts';
-import { addTeam, removeTeam, setMemberIds, setTeams } from './slice.ts';
-import { postMemberToTeam, postTeam } from '../../api/teams/post.ts';
-import { deleteMemberFromTeam, deleteTeam } from '../../api/teams/delete.ts';
+import { getGroups } from '../../api/groups/get.ts';
+import { addGroup, removeGroup, setMemberIds, setGroups } from './slice.ts';
+import { postMemberToGroup, postGroup } from '../../api/groups/post.ts';
+import { deleteMemberFromGroup, deleteGroup } from '../../api/groups/delete.ts';
 import { NotificationType, showNotification } from '../notification/slice.ts';
 
-export const loadTeams = () => async (dispatch: AppDispatch, getState: GetAppState) => {
+export const loadGroups = () => async (dispatch: AppDispatch, getState: GetAppState) => {
     const state = getState();
     const accessToken = selectAccessToken(state);
     const clubId = selectSelectedClubId(state)!;
 
-    const { status, data } = await getTeams({ accessToken, clubId });
+    const { status, data } = await getGroups({ accessToken, clubId });
 
     if (status !== 200 || !data) {
         dispatch(showNotification({
-            message: 'Beim Laden der Teams ist ein Fehler aufgetreten.',
+            message: 'Beim Laden der Gruppen ist ein Fehler aufgetreten.',
             type: NotificationType.Error
         }));
 
         return;
     }
 
-    dispatch(setTeams(data));
+    dispatch(setGroups(data));
 };
 
-interface SaveTeamAddProps {
+interface SaveGroupAddProps {
     name: string;
 }
 
-export const saveTeamAdd = ({ name }: SaveTeamAddProps) => async (dispatch: AppDispatch, getState: GetAppState) => {
+export const saveGroupAdd = ({ name }: SaveGroupAddProps) => async (dispatch: AppDispatch, getState: GetAppState) => {
     const state = getState();
     const accessToken = selectAccessToken(state);
     const clubId = selectSelectedClubId(state)!;
 
-    const { status, data } = await postTeam({ accessToken, clubId, payload: { name } });
+    const { status, data } = await postGroup({ accessToken, clubId, payload: { name } });
 
     if (status !== 201 || !data) {
         dispatch(showNotification({
-            message: 'Beim Erstellen des Teams ist ein Fehler aufgetreten.',
+            message: 'Beim Erstellen der Gruppe ist ein Fehler aufgetreten.',
             type: NotificationType.Error
         }));
 
         return;
     }
 
-    dispatch(addTeam({
+    dispatch(addGroup({
         ...data,
         memberIds: []
     }));
 };
 
-export interface SaveTeamDeleteProps {
-    teamId: number;
+export interface SaveGroupDeleteProps {
+    groupId: number;
 }
 
-export const saveTeamDelete = ({ teamId }: SaveTeamDeleteProps) => async (dispatch: AppDispatch, getState: GetAppState) => {
+export const saveGroupDelete = ({ groupId }: SaveGroupDeleteProps) => async (dispatch: AppDispatch, getState: GetAppState) => {
     const state = getState();
     const accessToken = selectAccessToken(state);
     const clubId = selectSelectedClubId(state)!;
 
-    const { status } = await deleteTeam({ accessToken, clubId, teamId });
+    const { status } = await deleteGroup({ accessToken, clubId, groupId });
 
     if (status !== 204) {
         dispatch(showNotification({
-            message: 'Beim Löschen des Teams ist ein Fehler aufgetreten.',
+            message: 'Beim Löschen der Gruppe ist ein Fehler aufgetreten.',
             type: NotificationType.Error
         }));
 
         return;
     }
 
-    dispatch(removeTeam(teamId));
+    dispatch(removeGroup(groupId));
 };
 
 interface SaveMemberSelectionUpdateProps {
-    teamId: number;
+    groupId: number;
     prevMemberIds: number[];
     memberIds: number[];
 }
@@ -85,25 +85,25 @@ export const saveMemberSelectionUpdate = (
     {
         memberIds,
         prevMemberIds,
-        teamId
+        groupId
     }: SaveMemberSelectionUpdateProps) => async (dispatch: AppDispatch, getState: GetAppState) => {
     const memberIdsToDelete = prevMemberIds.filter((id) => !memberIds.includes(id));
     const memberIdsToAdd = memberIds.filter((id) => !prevMemberIds.includes(id));
 
     const addPromises = memberIdsToAdd.map((memberId) => {
-        return postMemberToTeam({
+        return postMemberToGroup({
             accessToken: selectAccessToken(getState()),
             clubId: selectSelectedClubId(getState())!,
-            teamId,
+            groupId,
             memberId
         });
     });
 
     const deletePromises = memberIdsToDelete.map((memberId) => {
-        return deleteMemberFromTeam({
+        return deleteMemberFromGroup({
             accessToken: selectAccessToken(getState()),
             clubId: selectSelectedClubId(getState())!,
-            teamId,
+            groupId,
             memberId
         });
     });
@@ -111,5 +111,5 @@ export const saveMemberSelectionUpdate = (
     await Promise.all(addPromises);
     await Promise.all(deletePromises);
 
-    dispatch(setMemberIds({ teamId, memberIds }));
+    dispatch(setMemberIds({ groupId, memberIds }));
 };

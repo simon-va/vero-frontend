@@ -16,16 +16,16 @@ import {
     ListItemText,
     TextField
 } from '@mui/material';
-import { saveMemberSelectionUpdate } from '../../../../../../../redux-modules/teams/actions.ts';
+import { saveMemberSelectionUpdate } from '../../../../../../../redux-modules/groups/actions.ts';
 
 interface EditMembersProps {
     isOpen: boolean;
     onClose: () => void;
-    teamId: number;
+    groupId: number;
     memberIds: number[];
 }
 
-const EditMembers: FC<EditMembersProps> = ({ isOpen, onClose, teamId, memberIds }) => {
+const EditMembers: FC<EditMembersProps> = ({ isOpen, onClose, groupId, memberIds }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedMembers, setSelectedMembers] = useState<number[]>(memberIds);
 
@@ -64,7 +64,7 @@ const EditMembers: FC<EditMembersProps> = ({ isOpen, onClose, teamId, memberIds 
         onClose();
 
         void dispatch(saveMemberSelectionUpdate({
-            teamId,
+            groupId: groupId,
             prevMemberIds: memberIds,
             memberIds: selectedMembers
         }));

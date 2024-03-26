@@ -4,18 +4,18 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ConfirmDialog from '../../../../../shared/confirm-dialog/ConfirmDialog.tsx';
-import { saveTeamDelete } from '../../../../../../redux-modules/teams/actions.ts';
+import { saveGroupDelete } from '../../../../../../redux-modules/groups/actions.ts';
 import { useAppDispatch } from '../../../../../../hooks/redux.ts';
 import EditMembers from './edit-members/EditMembers.tsx';
 
 interface ContextMenuProps {
-    teamId: number;
+    groupId: number;
     name: string;
-    isSystemTeam: boolean;
+    isSystemGroup: boolean;
     memberIds: number[];
 }
 
-const ContextMenu: FC<ContextMenuProps> = ({ teamId, name, isSystemTeam, memberIds }) => {
+const ContextMenu: FC<ContextMenuProps> = ({ groupId, name, isSystemGroup, memberIds }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [openDialog, setOpenDialog] = useState<number | null>(null);
 
@@ -37,8 +37,8 @@ const ContextMenu: FC<ContextMenuProps> = ({ teamId, name, isSystemTeam, memberI
         setOpenDialog(null);
     };
 
-    const handleTeamDelete = () => {
-        void dispatch(saveTeamDelete({ teamId }));
+    const handleGroupDelete = () => {
+        void dispatch(saveGroupDelete({ groupId }));
     };
 
     return (
@@ -62,7 +62,7 @@ const ContextMenu: FC<ContextMenuProps> = ({ teamId, name, isSystemTeam, memberI
                     </ListItemIcon>
                     Mitglieder bearbeiten
                 </MenuItem>
-                { !isSystemTeam && (
+                { !isSystemGroup && (
                     <MenuItem onClick={ () => handleClose(2) }>
                         <ListItemIcon>
                             <DeleteOutlineOutlinedIcon fontSize="small" color="error"/>
@@ -76,13 +76,13 @@ const ContextMenu: FC<ContextMenuProps> = ({ teamId, name, isSystemTeam, memberI
             <EditMembers
                 isOpen={ openDialog === 1 }
                 onClose={ handleCloseDialog }
-                teamId={ teamId }
+                groupId={ groupId }
                 memberIds={ memberIds }
             />
             <ConfirmDialog
                 isOpen={ openDialog === 2 }
                 onClose={ handleCloseDialog }
-                onConfirm={ handleTeamDelete }
+                onConfirm={ handleGroupDelete }
                 title="Gruppe löschen"
                 message={ `Möchtest du die Gruppe ${ name } wirklich löschen? Alle Mitglieder werden entfernt. Diese Aktion kann nicht rückgängig gemacht werden.` }
             />
