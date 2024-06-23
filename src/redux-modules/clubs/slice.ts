@@ -8,7 +8,7 @@ export interface ClubState {
 
 const initialState: ClubState = {
     clubs: [],
-    selectedClubId: 1
+    selectedClubId: null
 };
 
 const slice = createSlice({
@@ -18,15 +18,20 @@ const slice = createSlice({
         setClubs(state, action: PayloadAction<Club[]>) {
             state.clubs = action.payload;
         },
-        setSelectedClubId(state, action: PayloadAction<Club['id']>) {
+        setSelectedClubId(state, action: PayloadAction<Club['id'] | null>) {
+            if (action.payload) {
+                localStorage.setItem('selectedClubId', action.payload.toString());
+            }
+
             state.selectedClubId = action.payload;
         },
-        setSelectedClub(state, action: PayloadAction<Club>) {
-            if (state.clubs.length === 0) {
-                state.clubs.push(action.payload);
-            } else {
-                state.clubs = state.clubs.map((club) => (club.id === action.payload.id ? action.payload : club));
-            }
+        addClub(state, action: PayloadAction<Club>) {
+            state.clubs.push(action.payload);
+            state.selectedClubId = action.payload.id;
+        },
+        removeClub(state, action: PayloadAction<Club['id']>) {
+            state.clubs = state.clubs.filter((club) => club.id !== action.payload);
+            state.selectedClubId = null;
         }
     }
 });
@@ -34,6 +39,7 @@ const slice = createSlice({
 export const {
     setClubs,
     setSelectedClubId,
-    setSelectedClub,
+    addClub,
+    removeClub
 } = slice.actions;
 export const clubsReducer = slice.reducer;

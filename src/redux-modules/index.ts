@@ -3,7 +3,8 @@ import { appReducer } from './app/slice.ts';
 import { modulesReducer } from './modules/slice.ts';
 import { clubsReducer } from './clubs/slice.ts';
 import { membersReducer } from './members/slice.ts';
-import { teamsReducer } from './teams/slice.ts';
+import { groupsReducer } from './groups/slice.ts';
+import { notificationReducer } from './notification/slice.ts';
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
         modules: modulesReducer,
         clubs: clubsReducer,
         members: membersReducer,
-        teams: teamsReducer
+        groups: groupsReducer,
+        notification: notificationReducer
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware({

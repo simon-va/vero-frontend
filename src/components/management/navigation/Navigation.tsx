@@ -23,14 +23,14 @@ const Navigation: FC = () => {
     return (
         <Box sx={ styles.root }>
             <List>
-                { modules.map(({ name, id }) => (
+                { modules.map(({ name, id, iconId }) => (
                     <ListItem key={ name } disablePadding>
                         <ListItemButton
                             selected={ selectedContent === id }
                             onClick={ (event) => handleListItemClick(event, id) }
                         >
                             <ListItemIcon sx={ { minWidth: '40px' } }>
-                                { ICON_LIST.find((icon) => icon.id === id)?.component }
+                                { ICON_LIST.find((icon) => icon.id === iconId)?.component }
                             </ListItemIcon>
                             <ListItemText primary={ name }/>
                         </ListItemButton>

@@ -1,17 +1,15 @@
 import { RootState } from '../index.ts';
-import { selectTeams } from '../teams/selectors.ts';
+import { selectGroups } from '../groups/selectors.ts';
 
 const selectMembersState = (state: RootState) => state.members;
 
 export const selectMembers = (state: RootState) => selectMembersState(state).members;
 
-export const selectMemberByTeam = (state: RootState, teamId: number) => {
-    const team = selectTeams(state).find((team) => team.id === teamId);
-
-    console.log(team);
+export const selectMemberByGroupId = (state: RootState, groupId: number) => {
+    const group = selectGroups(state).find((group) => group.id === groupId);
 
     const members = selectMembers(state);
 
-    return members.filter((member) => team?.memberIds.includes(member.id));
+    return members.filter((member) => group?.memberIds.includes(member.id));
 
 };

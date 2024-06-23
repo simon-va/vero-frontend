@@ -2,14 +2,7 @@ import { FC, SyntheticEvent } from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import styles from './clubSettingsMenu.styles.ts';
 
-const settings = ['Allgemein', 'Module', 'Mitglieder', 'Teams'];
-
-const a11yProps = (index: number) => {
-    return {
-        id: `tab-${ index }`,
-        'aria-controls': `tabpanel-${ index }`
-    };
-};
+const settings = ['Allgemein', 'Module', 'Mitglieder', 'Gruppen'];
 
 interface ClubSettingsMenuProps {
     selectedTab: number;
@@ -22,12 +15,12 @@ const ClubSettingsMenu: FC<ClubSettingsMenuProps> = ({ selectedTab, setSelectedT
     };
 
     return (
-        <Box sx={ styles.root }>
-            <Box sx={ { borderBottom: 1, borderColor: 'divider' } }>
-                <Tabs value={ selectedTab } onChange={ handleChange } aria-label="basic tabs example">
-                    { settings.map((setting, index) => (
-                        <Tab key={ index } label={ setting } { ...a11yProps(index) } />
-                    )) }
+        <Box sx={styles.root}>
+            <Box sx={styles.tabWrapper}>
+                <Tabs value={selectedTab} onChange={handleChange}>
+                    {settings.map((setting, index) => (
+                        <Tab key={index} label={setting}/>
+                    ))}
                 </Tabs>
             </Box>
         </Box>

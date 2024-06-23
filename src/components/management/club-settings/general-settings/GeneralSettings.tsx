@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
+import DeleteClub from './delete-club/DeleteClub.tsx';
 
 const GeneralSettings: FC = () => {
     return (
@@ -8,6 +9,7 @@ const GeneralSettings: FC = () => {
                 Hier kannst du allgemeine Einstellungen für deinen Verein vornehmen.
             </Typography>
             <Divider/>
+            <DeleteClub/>
         </Box>
     );
 };
